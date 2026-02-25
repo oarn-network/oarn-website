@@ -189,7 +189,7 @@ Decentralized AI infrastructure for open research.
 GitHub: https://github.com/oarn-network
 Docs: https://github.com/oarn-network/oarn-docs
 Twitter: https://twitter.com/OARNNetwork
-Discord: https://discord.gg/oarn
+Discord: https://discord.gg/RsrQwNvt
 
 Contracts (Arbitrum Sepolia):
 - OARNRegistry: 0xa122518Cb6E66A804fc37EB26c8a7aF309dCF04C
