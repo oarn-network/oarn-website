@@ -180,6 +180,24 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
+// Copy donate address function
+function copyDonateAddress() {
+    const address = document.getElementById('donate-address').textContent;
+    const btn = document.querySelector('.copy-btn');
+
+    navigator.clipboard.writeText(address).then(() => {
+        btn.classList.add('copied');
+        btn.querySelector('span').textContent = 'Copied!';
+
+        setTimeout(() => {
+            btn.classList.remove('copied');
+            btn.querySelector('span').textContent = 'Copy';
+        }, 2000);
+    }).catch(err => {
+        console.error('Failed to copy:', err);
+    });
+}
+
 // Console welcome message
 console.log(`
 %c OARN - Open AI Research Network %c

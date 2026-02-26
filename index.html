@@ -26,6 +26,7 @@
                 <li><a href="#how-it-works">How It Works</a></li>
                 <li><a href="#tokenomics">Tokenomics</a></li>
                 <li><a href="#community">Community</a></li>
+                <li><a href="#support">Support</a></li>
             </ul>
             <div class="nav-buttons">
                 <a href="https://github.com/oarn-network" class="btn btn-secondary" target="_blank">GitHub</a>
@@ -355,6 +356,36 @@ const result = await client.inference({
                     </svg>
                     <span>Email</span>
                 </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Support / Donate -->
+    <section id="support" class="support">
+        <div class="container">
+            <h2 class="section-title">Support the Project</h2>
+            <p class="section-subtitle">Help us build open AI infrastructure for everyone</p>
+
+            <div class="donate-card">
+                <div class="donate-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                </div>
+                <h3>Donate ETH / Tokens</h3>
+                <p>Support OARN development by sending ETH or tokens to our project wallet</p>
+                <div class="wallet-address">
+                    <span class="network-badge">Ethereum / Arbitrum / Any EVM</span>
+                    <code class="address" id="donate-address">0x7379651E169e63272ec57Ce14f2BfC023e28382E</code>
+                    <button class="copy-btn" onclick="copyDonateAddress()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                        </svg>
+                        <span>Copy</span>
+                    </button>
+                </div>
+                <p class="donate-note">All donations go directly to development and infrastructure costs</p>
             </div>
         </div>
     </section>
