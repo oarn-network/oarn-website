@@ -186,6 +186,7 @@ console.log(`
 
 Decentralized AI infrastructure for open research.
 
+Website: https://oarn-network.github.io/oarn-website/
 GitHub: https://github.com/oarn-network
 Docs: https://github.com/oarn-network/oarn-docs
 Twitter: https://twitter.com/OARNNetwork
