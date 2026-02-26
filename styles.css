@@ -135,6 +135,13 @@ img {
     font-size: 18px;
 }
 
+.logo-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    object-fit: contain;
+}
+
 .nav-links {
     display: flex;
     gap: 32px;
