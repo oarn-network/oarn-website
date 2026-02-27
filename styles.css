@@ -665,86 +665,106 @@ section {
     background: var(--background-light);
 }
 
+.donate-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
 .donate-card {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 48px;
+    padding: 28px;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 16px;
     text-align: center;
+    transition: all 0.3s ease;
 }
 
-.donate-icon {
-    width: 64px;
-    height: 64px;
-    margin: 0 auto 24px;
+.donate-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-4px);
+}
+
+.donate-header {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--gradient);
-    border-radius: 50%;
+    gap: 12px;
+    margin-bottom: 12px;
 }
 
-.donate-icon svg {
-    width: 32px;
-    height: 32px;
+.chain-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 12px;
     color: white;
 }
 
+.chain-icon.eth {
+    background: linear-gradient(135deg, #627eea, #3c3c3d);
+}
+
+.chain-icon.btc {
+    background: linear-gradient(135deg, #f7931a, #e2820c);
+}
+
+.chain-icon.sol {
+    background: linear-gradient(135deg, #9945ff, #14f195);
+}
+
+.chain-icon.xmr {
+    background: linear-gradient(135deg, #ff6600, #4c4c4c);
+}
+
 .donate-card h3 {
-    font-size: 24px;
-    margin-bottom: 12px;
+    font-size: 18px;
+    margin: 0;
 }
 
 .donate-card > p {
     color: var(--text-muted);
-    margin-bottom: 32px;
+    font-size: 13px;
+    margin: 8px 0 16px;
 }
 
 .wallet-address {
     background: var(--background);
     border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-.network-badge {
-    display: inline-block;
-    background: var(--primary);
-    color: white;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 4px 12px;
-    border-radius: 20px;
-    margin-bottom: 16px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    border-radius: 10px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .wallet-address .address {
-    display: block;
     font-family: 'Fira Code', monospace;
-    font-size: 14px;
+    font-size: 11px;
     color: var(--accent);
     word-break: break-all;
-    margin-bottom: 16px;
-    padding: 12px;
+    padding: 8px;
     background: var(--surface);
-    border-radius: 8px;
+    border-radius: 6px;
+    line-height: 1.4;
+}
+
+.wallet-address .address.monero-addr {
+    font-size: 9px;
 }
 
 .copy-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
+    padding: 8px 16px;
     background: var(--gradient);
     color: white;
     border: none;
-    border-radius: 8px;
-    font-size: 14px;
+    border-radius: 6px;
+    font-size: 13px;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -759,10 +779,18 @@ section {
     background: var(--success);
 }
 
+.network-note {
+    display: block;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 12px;
+}
+
 .donate-note {
-    font-size: 13px;
+    font-size: 14px;
     color: var(--text-muted);
     font-style: italic;
+    text-align: center;
 }
 
 /* Footer */

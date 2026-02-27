@@ -180,18 +180,19 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// Copy donate address function
-function copyDonateAddress() {
-    const address = document.getElementById('donate-address').textContent;
-    const btn = document.querySelector('.copy-btn');
+// Copy wallet address function
+function copyAddress(btn) {
+    const addressEl = btn.parentElement.querySelector('.address');
+    const address = addressEl.dataset.address || addressEl.textContent;
 
     navigator.clipboard.writeText(address).then(() => {
         btn.classList.add('copied');
-        btn.querySelector('span').textContent = 'Copied!';
+        const originalText = btn.textContent;
+        btn.textContent = 'Copied!';
 
         setTimeout(() => {
             btn.classList.remove('copied');
-            btn.querySelector('span').textContent = 'Copy';
+            btn.textContent = originalText;
         }, 2000);
     }).catch(err => {
         console.error('Failed to copy:', err);
