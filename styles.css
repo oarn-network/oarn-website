@@ -1216,6 +1216,11 @@ section {
     color: var(--success);
 }
 
+.task-status.expired {
+    background: rgba(239, 68, 68, 0.2);
+    color: var(--error);
+}
+
 .task-body {
     padding: 24px;
 }

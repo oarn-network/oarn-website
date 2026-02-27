@@ -55,12 +55,12 @@
                     <span class="stat-label">Completed</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-number" id="pending-tasks">1</span>
-                    <span class="stat-label">Pending</span>
+                    <span class="stat-number" id="expired-tasks">1</span>
+                    <span class="stat-label">Expired</span>
                 </div>
                 <div class="stat-box">
                     <span class="stat-number" id="total-rewards">0.001</span>
-                    <span class="stat-label">ETH Rewards</span>
+                    <span class="stat-label">ETH Locked</span>
                 </div>
             </div>
         </div>
@@ -119,13 +119,14 @@
                         <span class="label">Task</span>
                         <span class="value">#1</span>
                     </div>
-                    <span class="task-status pending">Pending</span>
+                    <span class="task-status expired">Expired</span>
                 </div>
 
                 <div class="task-body">
                     <h3 class="task-title">ONNX Model Inference Test</h3>
                     <p class="task-description">
                         Initial test task submitted to verify TaskRegistry contract functionality on Arbitrum Sepolia testnet.
+                        This task expired without being claimed by a compute node (no active nodes on testnet yet).
                     </p>
 
                     <div class="task-meta">
