@@ -12,6 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/ethers@6.9.0/dist/ethers.umd.min.js"></script>
 </head>
 <body>
     <!-- Navigation -->
@@ -44,22 +45,26 @@
         <div class="container">
             <h1>Task Explorer</h1>
             <p class="section-subtitle">Browse AI research tasks submitted to the OARN network</p>
+            <p class="live-indicator" id="live-indicator">
+                <span class="live-dot"></span>
+                <span id="connection-status">Connecting to blockchain...</span>
+            </p>
 
             <div class="task-stats">
                 <div class="stat-box">
-                    <span class="stat-number" id="total-tasks">1</span>
+                    <span class="stat-number" id="total-tasks">-</span>
                     <span class="stat-label">Total Tasks</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-number" id="completed-tasks">0</span>
+                    <span class="stat-number" id="active-tasks">-</span>
+                    <span class="stat-label">Active</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number" id="completed-tasks">-</span>
                     <span class="stat-label">Completed</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-number" id="expired-tasks">1</span>
-                    <span class="stat-label">Expired</span>
-                </div>
-                <div class="stat-box">
-                    <span class="stat-number" id="total-rewards">0.001</span>
+                    <span class="stat-number" id="total-rewards">-</span>
                     <span class="stat-label">ETH Locked</span>
                 </div>
             </div>
@@ -77,6 +82,7 @@
                         <option value="pending">Pending</option>
                         <option value="active">Active</option>
                         <option value="completed">Completed</option>
+                        <option value="expired">Expired</option>
                     </select>
                 </div>
                 <div class="filter-group">
@@ -97,7 +103,7 @@
                         <option value="reward-low">Lowest Reward</option>
                     </select>
                 </div>
-                <button class="btn btn-secondary" onclick="refreshTasks()">
+                <button class="btn btn-secondary" id="refresh-btn" onclick="loadTasks()">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
                         <path d="M23 4v6h-6M1 20v-6h6"/>
                         <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
@@ -111,75 +117,16 @@
     <!-- Task List -->
     <section class="tasks-list">
         <div class="container">
+            <!-- Loading State -->
+            <div class="loading-state" id="loading-state">
+                <div class="loading-spinner"></div>
+                <p>Loading tasks from blockchain...</p>
+            </div>
 
-            <!-- Task Card 1 - Example/Test Task -->
-            <article class="task-card" data-task-id="1">
-                <div class="task-header">
-                    <div class="task-id">
-                        <span class="label">Task</span>
-                        <span class="value">#1</span>
-                    </div>
-                    <span class="task-status expired">Expired</span>
-                </div>
+            <!-- Tasks Container (populated by JavaScript) -->
+            <div id="tasks-container"></div>
 
-                <div class="task-body">
-                    <h3 class="task-title">ONNX Model Inference Test</h3>
-                    <p class="task-description">
-                        Initial test task submitted to verify TaskRegistry contract functionality on Arbitrum Sepolia testnet.
-                        This task expired without being claimed by a compute node (no active nodes on testnet yet).
-                    </p>
-
-                    <div class="task-meta">
-                        <div class="meta-item">
-                            <span class="meta-label">Framework</span>
-                            <span class="meta-value">
-                                <span class="framework-badge onnx">ONNX</span>
-                            </span>
-                        </div>
-                        <div class="meta-item">
-                            <span class="meta-label">Min RAM</span>
-                            <span class="meta-value">4 GB</span>
-                        </div>
-                        <div class="meta-item">
-                            <span class="meta-label">Reward</span>
-                            <span class="meta-value reward">0.001 ETH</span>
-                        </div>
-                        <div class="meta-item">
-                            <span class="meta-label">Nodes Required</span>
-                            <span class="meta-value">1</span>
-                        </div>
-                    </div>
-
-                    <div class="task-hashes">
-                        <div class="hash-item">
-                            <span class="hash-label">Model Hash</span>
-                            <code class="hash-value">0xd32c222239e569c6fb4e29754bc3ba520ece66dc8f3c235da89d33f37c1d23a6</code>
-                        </div>
-                        <div class="hash-item">
-                            <span class="hash-label">Input Hash</span>
-                            <code class="hash-value">0xc2bf3833378cc2ada753bbe133924c8295fb5414e4f2388cbbaf5c9d60db12f7</code>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="task-footer">
-                    <div class="task-submitter">
-                        <span class="label">Submitted by</span>
-                        <a href="https://sepolia.arbiscan.io/address/0x7379651E169e63272ec57Ce14f2BfC023e28382E" target="_blank" class="address">
-                            0x7379...382E
-                        </a>
-                    </div>
-                    <div class="task-time">
-                        <span class="label">Submitted</span>
-                        <time datetime="2026-02-24">Feb 24, 2026</time>
-                    </div>
-                    <a href="https://sepolia.arbiscan.io/tx/0x3242ab3fcc595df1ea99fb19a654fe55879192a62ee6d81f05c7a5937a5abe7e" target="_blank" class="btn btn-secondary btn-small">
-                        View on Arbiscan
-                    </a>
-                </div>
-            </article>
-
-            <!-- Empty State (shown when no tasks match filter) -->
+            <!-- Empty State -->
             <div class="empty-state" id="empty-state" style="display: none;">
                 <div class="empty-icon">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="64" height="64">
@@ -192,13 +139,12 @@
                 <p>No tasks match your current filters. Try adjusting your search criteria.</p>
             </div>
 
-            <!-- Coming Soon Placeholder -->
-            <div class="coming-soon-card">
-                <h3>More Research Coming Soon</h3>
-                <p>As researchers submit AI tasks to the network, they'll appear here. Want to be the first?</p>
-                <a href="manual.html#researchers" class="btn btn-primary">Submit a Task</a>
+            <!-- Error State -->
+            <div class="error-state" id="error-state" style="display: none;">
+                <h3>Connection Error</h3>
+                <p id="error-message">Failed to connect to the blockchain.</p>
+                <button class="btn btn-primary" onclick="loadTasks()">Retry</button>
             </div>
-
         </div>
     </section>
 
@@ -232,7 +178,7 @@
                     <a href="https://sepolia.arbiscan.io/address/0xa122518Cb6E66A804fc37EB26c8a7aF309dCF04C" target="_blank">View</a>
                 </div>
             </div>
-            <p class="network-note">Currently deployed on Arbitrum Sepolia (Testnet)</p>
+            <p class="network-note">Currently deployed on Arbitrum Sepolia (Testnet) - Auto-refreshes every 30 seconds</p>
         </div>
     </section>
 
@@ -283,30 +229,408 @@
 
     <script src="script.js"></script>
     <script>
-        // Task Explorer functionality
-        function refreshTasks() {
-            const btn = document.querySelector('.filter-bar .btn');
-            btn.textContent = 'Loading...';
+        // Contract configuration
+        const CONFIG = {
+            rpcUrl: 'https://sepolia-rollup.arbitrum.io/rpc',
+            taskRegistryAddress: '0x4Dc9dD73834E94545cF041091e1A743FBD09a60f',
+            chainId: 421614,
+            refreshInterval: 30000 // 30 seconds
+        };
 
-            // Simulate refresh (in production, this would fetch from blockchain)
-            setTimeout(() => {
-                btn.innerHTML = `
+        // Task status enum
+        const TaskStatus = {
+            0: 'Pending',
+            1: 'Active',
+            2: 'Completed',
+            3: 'Cancelled',
+            4: 'Expired'
+        };
+
+        // TaskRegistry ABI (minimal for reading)
+        const TASK_REGISTRY_ABI = [
+            "function taskCount() view returns (uint256)",
+            "function tasks(uint256) view returns (uint256 id, address requester, bytes32 modelHash, bytes32 inputHash, string modelRequirements, uint256 rewardPerNode, uint256 requiredNodes, uint256 completedNodes, uint256 deadline, uint8 status, uint8 mode, uint256 createdAt)",
+            "function getTaskResults(uint256 taskId) view returns (tuple(address node, bytes32 resultHash, uint256 submittedAt, bool verified, bool rewarded)[])",
+            "event TaskCreated(uint256 indexed taskId, address indexed requester, bytes32 modelHash, uint256 rewardPerNode, uint256 requiredNodes, uint8 mode)",
+            "event TaskClaimed(uint256 indexed taskId, address indexed node)",
+            "event ResultSubmitted(uint256 indexed taskId, address indexed node, bytes32 resultHash)",
+            "event TaskCompleted(uint256 indexed taskId, uint256 totalRewards)"
+        ];
+
+        let provider;
+        let contract;
+        let allTasks = [];
+        let refreshTimer;
+
+        // Initialize connection
+        async function init() {
+            try {
+                provider = new ethers.JsonRpcProvider(CONFIG.rpcUrl);
+                contract = new ethers.Contract(CONFIG.taskRegistryAddress, TASK_REGISTRY_ABI, provider);
+
+                // Verify connection
+                const network = await provider.getNetwork();
+                if (Number(network.chainId) === CONFIG.chainId) {
+                    document.getElementById('connection-status').textContent = 'Connected to Arbitrum Sepolia';
+                    document.getElementById('live-indicator').classList.add('connected');
+                    await loadTasks();
+                    startAutoRefresh();
+                } else {
+                    throw new Error('Wrong network');
+                }
+            } catch (error) {
+                console.error('Init error:', error);
+                document.getElementById('connection-status').textContent = 'Connection failed - retrying...';
+                setTimeout(init, 5000);
+            }
+        }
+
+        // Load all tasks from blockchain
+        async function loadTasks() {
+            const loadingState = document.getElementById('loading-state');
+            const tasksContainer = document.getElementById('tasks-container');
+            const emptyState = document.getElementById('empty-state');
+            const errorState = document.getElementById('error-state');
+            const refreshBtn = document.getElementById('refresh-btn');
+
+            try {
+                refreshBtn.disabled = true;
+                refreshBtn.innerHTML = '<span class="loading-spinner-small"></span> Loading...';
+
+                loadingState.style.display = allTasks.length === 0 ? 'block' : 'none';
+                errorState.style.display = 'none';
+
+                const taskCount = await contract.taskCount();
+                const count = Number(taskCount);
+
+                allTasks = [];
+                let totalRewards = 0n;
+                let activeCount = 0;
+                let completedCount = 0;
+                const currentTime = Math.floor(Date.now() / 1000);
+
+                for (let i = 1; i <= count; i++) {
+                    try {
+                        const task = await contract.tasks(i);
+                        const taskData = {
+                            id: Number(task.id),
+                            requester: task.requester,
+                            modelHash: task.modelHash,
+                            inputHash: task.inputHash,
+                            requirements: task.modelRequirements,
+                            rewardPerNode: task.rewardPerNode,
+                            requiredNodes: Number(task.requiredNodes),
+                            completedNodes: Number(task.completedNodes),
+                            deadline: Number(task.deadline),
+                            status: Number(task.status),
+                            mode: Number(task.mode),
+                            createdAt: Number(task.createdAt)
+                        };
+
+                        // Determine effective status (check expiration)
+                        if ((taskData.status === 0 || taskData.status === 1) && taskData.deadline < currentTime) {
+                            taskData.effectiveStatus = 4; // Expired
+                        } else {
+                            taskData.effectiveStatus = taskData.status;
+                        }
+
+                        // Parse requirements
+                        try {
+                            taskData.parsedRequirements = JSON.parse(taskData.requirements);
+                        } catch {
+                            taskData.parsedRequirements = { framework: 'unknown' };
+                        }
+
+                        allTasks.push(taskData);
+                        totalRewards += taskData.rewardPerNode * BigInt(taskData.requiredNodes);
+
+                        if (taskData.effectiveStatus === 1) activeCount++;
+                        if (taskData.effectiveStatus === 2) completedCount++;
+                    } catch (e) {
+                        console.error(`Error loading task ${i}:`, e);
+                    }
+                }
+
+                // Update stats
+                document.getElementById('total-tasks').textContent = count;
+                document.getElementById('active-tasks').textContent = activeCount;
+                document.getElementById('completed-tasks').textContent = completedCount;
+                document.getElementById('total-rewards').textContent = ethers.formatEther(totalRewards);
+
+                // Render tasks
+                loadingState.style.display = 'none';
+                renderTasks();
+
+            } catch (error) {
+                console.error('Load error:', error);
+                loadingState.style.display = 'none';
+                errorState.style.display = 'block';
+                document.getElementById('error-message').textContent = error.message;
+            } finally {
+                refreshBtn.disabled = false;
+                refreshBtn.innerHTML = `
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
                         <path d="M23 4v6h-6M1 20v-6h6"/>
                         <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
                     </svg>
                     Refresh
                 `;
-            }, 1000);
+            }
         }
 
-        // Filter functionality (placeholder for future blockchain integration)
-        document.querySelectorAll('.filter-bar select').forEach(select => {
-            select.addEventListener('change', () => {
-                console.log('Filter changed:', select.id, select.value);
-                // In production: filter tasks based on selection
+        // Render tasks based on filters
+        function renderTasks() {
+            const container = document.getElementById('tasks-container');
+            const emptyState = document.getElementById('empty-state');
+            const statusFilter = document.getElementById('filter-status').value;
+            const frameworkFilter = document.getElementById('filter-framework').value;
+            const sortBy = document.getElementById('filter-sort').value;
+
+            // Filter tasks
+            let filtered = allTasks.filter(task => {
+                // Status filter
+                if (statusFilter !== 'all') {
+                    const statusMap = { pending: 0, active: 1, completed: 2, expired: 4 };
+                    if (task.effectiveStatus !== statusMap[statusFilter]) return false;
+                }
+
+                // Framework filter
+                if (frameworkFilter !== 'all') {
+                    const framework = task.parsedRequirements?.framework?.toLowerCase() || '';
+                    if (!framework.includes(frameworkFilter)) return false;
+                }
+
+                return true;
             });
-        });
+
+            // Sort tasks
+            filtered.sort((a, b) => {
+                switch (sortBy) {
+                    case 'newest': return b.createdAt - a.createdAt;
+                    case 'oldest': return a.createdAt - b.createdAt;
+                    case 'reward-high': return Number(b.rewardPerNode - a.rewardPerNode);
+                    case 'reward-low': return Number(a.rewardPerNode - b.rewardPerNode);
+                    default: return b.id - a.id;
+                }
+            });
+
+            // Show empty state if no tasks
+            if (filtered.length === 0) {
+                container.innerHTML = '';
+                emptyState.style.display = 'block';
+                return;
+            }
+
+            emptyState.style.display = 'none';
+            container.innerHTML = filtered.map(task => createTaskCard(task)).join('');
+        }
+
+        // Create HTML for a task card
+        function createTaskCard(task) {
+            const statusClasses = {
+                0: 'pending',
+                1: 'active',
+                2: 'completed',
+                3: 'cancelled',
+                4: 'expired'
+            };
+
+            const statusClass = statusClasses[task.effectiveStatus] || 'pending';
+            const statusText = TaskStatus[task.effectiveStatus] || 'Unknown';
+            const framework = task.parsedRequirements?.framework?.toUpperCase() || 'UNKNOWN';
+            const minRam = task.parsedRequirements?.min_ram || 'N/A';
+            const rewardEth = ethers.formatEther(task.rewardPerNode);
+            const deadline = new Date(task.deadline * 1000);
+            const createdAt = new Date(task.createdAt * 1000);
+            const shortAddress = task.requester.slice(0, 6) + '...' + task.requester.slice(-4);
+
+            return `
+                <article class="task-card" data-task-id="${task.id}">
+                    <div class="task-header">
+                        <div class="task-id">
+                            <span class="label">Task</span>
+                            <span class="value">#${task.id}</span>
+                        </div>
+                        <span class="task-status ${statusClass}">${statusText}</span>
+                    </div>
+
+                    <div class="task-body">
+                        <h3 class="task-title">${framework} Model Inference</h3>
+                        <p class="task-description">
+                            ${task.effectiveStatus === 2 ?
+                                `Completed by ${task.completedNodes} node(s). Results verified on-chain.` :
+                                task.effectiveStatus === 1 ?
+                                `Being processed by compute nodes. ${task.completedNodes}/${task.requiredNodes} nodes completed.` :
+                                task.effectiveStatus === 4 ?
+                                `Task expired on ${deadline.toLocaleDateString()}. ${task.completedNodes}/${task.requiredNodes} nodes completed before expiration.` :
+                                `Waiting for compute nodes to claim and process this task.`
+                            }
+                        </p>
+
+                        <div class="task-meta">
+                            <div class="meta-item">
+                                <span class="meta-label">Framework</span>
+                                <span class="meta-value">
+                                    <span class="framework-badge ${framework.toLowerCase()}">${framework}</span>
+                                </span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Min RAM</span>
+                                <span class="meta-value">${minRam}</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Reward</span>
+                                <span class="meta-value reward">${rewardEth} ETH</span>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Progress</span>
+                                <span class="meta-value">${task.completedNodes}/${task.requiredNodes} nodes</span>
+                            </div>
+                        </div>
+
+                        <div class="task-hashes">
+                            <div class="hash-item">
+                                <span class="hash-label">Model Hash</span>
+                                <code class="hash-value">${task.modelHash}</code>
+                            </div>
+                            <div class="hash-item">
+                                <span class="hash-label">Input Hash</span>
+                                <code class="hash-value">${task.inputHash}</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="task-footer">
+                        <div class="task-submitter">
+                            <span class="label">Submitted by</span>
+                            <a href="https://sepolia.arbiscan.io/address/${task.requester}" target="_blank" class="address">
+                                ${shortAddress}
+                            </a>
+                        </div>
+                        <div class="task-time">
+                            <span class="label">Created</span>
+                            <time datetime="${createdAt.toISOString()}">${createdAt.toLocaleDateString()}</time>
+                        </div>
+                        <a href="https://sepolia.arbiscan.io/address/${CONFIG.taskRegistryAddress}#readContract" target="_blank" class="btn btn-secondary btn-small">
+                            View on Arbiscan
+                        </a>
+                    </div>
+                </article>
+            `;
+        }
+
+        // Start auto-refresh
+        function startAutoRefresh() {
+            if (refreshTimer) clearInterval(refreshTimer);
+            refreshTimer = setInterval(loadTasks, CONFIG.refreshInterval);
+        }
+
+        // Filter change handlers
+        document.getElementById('filter-status').addEventListener('change', renderTasks);
+        document.getElementById('filter-framework').addEventListener('change', renderTasks);
+        document.getElementById('filter-sort').addEventListener('change', renderTasks);
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', init);
     </script>
+
+    <style>
+        /* Additional styles for live functionality */
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .live-dot {
+            width: 10px;
+            height: 10px;
+            background: #ef4444;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .live-indicator.connected .live-dot {
+            background: #22c55e;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .loading-state, .error-state {
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border-color);
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        .loading-spinner-small {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 2px solid currentColor;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .error-state {
+            background: rgba(239, 68, 68, 0.1);
+            border-radius: 12px;
+        }
+
+        .error-state h3 {
+            color: #ef4444;
+        }
+
+        .task-status.active {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+        }
+
+        .task-status.pending {
+            background: rgba(234, 179, 8, 0.1);
+            color: #eab308;
+        }
+
+        .task-status.completed {
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+        }
+
+        .task-status.expired {
+            background: rgba(107, 114, 128, 0.1);
+            color: #6b7280;
+        }
+
+        .task-status.cancelled {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+        }
+
+        #refresh-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+    </style>
 </body>
 </html>
