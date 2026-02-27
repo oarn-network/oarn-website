@@ -1049,6 +1049,477 @@ section {
     color: var(--primary-light);
 }
 
+/* Task Explorer Page */
+.tasks-header {
+    padding: 120px 0 40px;
+    background: var(--background);
+    text-align: center;
+}
+
+.tasks-header h1 {
+    font-size: 48px;
+    margin-bottom: 16px;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.task-stats {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+}
+
+.stat-box {
+    padding: 24px 40px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.tasks-filters {
+    padding: 24px 0;
+    background: var(--background-light);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 72px;
+    z-index: 90;
+}
+
+.filter-bar {
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.filter-group label {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.filter-group select {
+    padding: 10px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 14px;
+    cursor: pointer;
+    min-width: 160px;
+}
+
+.filter-group select:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.filter-bar .btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+}
+
+.tasks-list {
+    padding: 48px 0;
+    background: var(--background);
+    min-height: 400px;
+}
+
+.task-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.task-card:hover {
+    border-color: var(--primary);
+}
+
+.task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    background: var(--background-light);
+    border-bottom: 1px solid var(--border);
+}
+
+.task-id {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.task-id .label {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.task-id .value {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--primary-light);
+}
+
+.task-status {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.task-status.pending {
+    background: rgba(245, 158, 11, 0.2);
+    color: var(--warning);
+}
+
+.task-status.active {
+    background: rgba(34, 211, 238, 0.2);
+    color: var(--accent);
+}
+
+.task-status.completed {
+    background: rgba(34, 197, 94, 0.2);
+    color: var(--success);
+}
+
+.task-body {
+    padding: 24px;
+}
+
+.task-title {
+    font-size: 22px;
+    margin-bottom: 12px;
+}
+
+.task-description {
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.task-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.meta-item {
+    padding: 16px;
+    background: var(--background);
+    border-radius: 10px;
+}
+
+.meta-label {
+    display: block;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+
+.meta-value {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.meta-value.reward {
+    color: var(--success);
+}
+
+.framework-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.framework-badge.onnx {
+    background: rgba(99, 102, 241, 0.2);
+    color: var(--primary-light);
+}
+
+.framework-badge.pytorch {
+    background: rgba(239, 68, 68, 0.2);
+    color: #f87171;
+}
+
+.framework-badge.tensorflow {
+    background: rgba(251, 146, 60, 0.2);
+    color: #fb923c;
+}
+
+.task-hashes {
+    background: var(--background);
+    border-radius: 10px;
+    padding: 16px;
+}
+
+.hash-item {
+    margin-bottom: 12px;
+}
+
+.hash-item:last-child {
+    margin-bottom: 0;
+}
+
+.hash-label {
+    display: block;
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.hash-value {
+    font-family: 'Fira Code', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    word-break: break-all;
+}
+
+.task-footer {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 16px 24px;
+    background: var(--background-light);
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+}
+
+.task-submitter,
+.task-time {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.task-footer .label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.task-submitter .address {
+    font-family: 'Fira Code', monospace;
+    font-size: 13px;
+    color: var(--primary-light);
+}
+
+.task-submitter .address:hover {
+    text-decoration: underline;
+}
+
+.task-time time {
+    font-size: 14px;
+}
+
+.task-footer .btn {
+    margin-left: auto;
+}
+
+.btn-small {
+    padding: 8px 16px;
+    font-size: 13px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 80px 24px;
+}
+
+.empty-icon {
+    color: var(--text-muted);
+    margin-bottom: 24px;
+}
+
+.empty-state h3 {
+    font-size: 24px;
+    margin-bottom: 12px;
+}
+
+.empty-state p {
+    color: var(--text-muted);
+}
+
+.coming-soon-card {
+    text-align: center;
+    padding: 48px;
+    background: var(--surface);
+    border: 2px dashed var(--border);
+    border-radius: 16px;
+}
+
+.coming-soon-card h3 {
+    font-size: 20px;
+    margin-bottom: 12px;
+}
+
+.coming-soon-card p {
+    color: var(--text-muted);
+    margin-bottom: 24px;
+}
+
+.submit-cta {
+    padding: 80px 0;
+    background: var(--background-light);
+}
+
+.cta-content {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.cta-content h2 {
+    font-size: 32px;
+    margin-bottom: 16px;
+}
+
+.cta-content p {
+    color: var(--text-muted);
+    font-size: 18px;
+    margin-bottom: 32px;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.network-info {
+    padding: 48px 0;
+    background: var(--background);
+    text-align: center;
+}
+
+.network-info h3 {
+    font-size: 20px;
+    margin-bottom: 24px;
+}
+
+.contracts-mini {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.contract-mini-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+}
+
+.contract-mini-item .contract-name {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.contract-mini-item code {
+    font-family: 'Fira Code', monospace;
+    font-size: 11px;
+    color: var(--accent);
+}
+
+.contract-mini-item a {
+    color: var(--primary-light);
+    font-size: 13px;
+}
+
+.contract-mini-item a:hover {
+    text-decoration: underline;
+}
+
+.network-info .network-note {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    .tasks-header h1 {
+        font-size: 32px;
+    }
+
+    .task-stats {
+        gap: 16px;
+    }
+
+    .stat-box {
+        padding: 16px 24px;
+    }
+
+    .filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-bar .btn {
+        margin-left: 0;
+        margin-top: 16px;
+    }
+
+    .task-meta {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .task-footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .task-footer .btn {
+        margin-left: 0;
+        margin-top: 16px;
+        width: 100%;
+    }
+}
+
 @media (max-width: 768px) {
     .manual-header h1 {
         font-size: 32px;

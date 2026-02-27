@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Explorer - OARN Network</title>
+    <meta name="description" content="Explore AI research tasks submitted to the OARN decentralized compute network.">
+    <link rel="canonical" href="https://oarn-network.github.io/oarn-website/tasks.html">
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="OARN Logo" class="logo-img">
+                <span class="logo-text">OARN</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="index.html#how-it-works">How It Works</a></li>
+                <li><a href="manual.html">Manual</a></li>
+                <li><a href="tasks.html" class="active">Tasks</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a href="https://github.com/oarn-network" class="btn btn-secondary" target="_blank">GitHub</a>
+                <a href="index.html#get-started" class="btn btn-primary">Get Started</a>
+            </div>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Task Explorer Header -->
+    <section class="tasks-header">
+        <div class="container">
+            <h1>Task Explorer</h1>
+            <p class="section-subtitle">Browse AI research tasks submitted to the OARN network</p>
+
+            <div class="task-stats">
+                <div class="stat-box">
+                    <span class="stat-number" id="total-tasks">1</span>
+                    <span class="stat-label">Total Tasks</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number" id="completed-tasks">0</span>
+                    <span class="stat-label">Completed</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number" id="pending-tasks">1</span>
+                    <span class="stat-label">Pending</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number" id="total-rewards">0.001</span>
+                    <span class="stat-label">ETH Rewards</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filters -->
+    <section class="tasks-filters">
+        <div class="container">
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <label>Status</label>
+                    <select id="filter-status">
+                        <option value="all">All Tasks</option>
+                        <option value="pending">Pending</option>
+                        <option value="active">Active</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Framework</label>
+                    <select id="filter-framework">
+                        <option value="all">All Frameworks</option>
+                        <option value="onnx">ONNX</option>
+                        <option value="pytorch">PyTorch</option>
+                        <option value="tensorflow">TensorFlow</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Sort By</label>
+                    <select id="filter-sort">
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                        <option value="reward-high">Highest Reward</option>
+                        <option value="reward-low">Lowest Reward</option>
+                    </select>
+                </div>
+                <button class="btn btn-secondary" onclick="refreshTasks()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                        <path d="M23 4v6h-6M1 20v-6h6"/>
+                        <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+                    </svg>
+                    Refresh
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Task List -->
+    <section class="tasks-list">
+        <div class="container">
+
+            <!-- Task Card 1 - Example/Test Task -->
+            <article class="task-card" data-task-id="1">
+                <div class="task-header">
+                    <div class="task-id">
+                        <span class="label">Task</span>
+                        <span class="value">#1</span>
+                    </div>
+                    <span class="task-status pending">Pending</span>
+                </div>
+
+                <div class="task-body">
+                    <h3 class="task-title">ONNX Model Inference Test</h3>
+                    <p class="task-description">
+                        Initial test task submitted to verify TaskRegistry contract functionality on Arbitrum Sepolia testnet.
+                    </p>
+
+                    <div class="task-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">Framework</span>
+                            <span class="meta-value">
+                                <span class="framework-badge onnx">ONNX</span>
+                            </span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Min RAM</span>
+                            <span class="meta-value">4 GB</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Reward</span>
+                            <span class="meta-value reward">0.001 ETH</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Nodes Required</span>
+                            <span class="meta-value">1</span>
+                        </div>
+                    </div>
+
+                    <div class="task-hashes">
+                        <div class="hash-item">
+                            <span class="hash-label">Model Hash</span>
+                            <code class="hash-value">0xd32c222239e569c6fb4e29754bc3ba520ece66dc8f3c235da89d33f37c1d23a6</code>
+                        </div>
+                        <div class="hash-item">
+                            <span class="hash-label">Input Hash</span>
+                            <code class="hash-value">0xc2bf3833378cc2ada753bbe133924c8295fb5414e4f2388cbbaf5c9d60db12f7</code>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="task-footer">
+                    <div class="task-submitter">
+                        <span class="label">Submitted by</span>
+                        <a href="https://sepolia.arbiscan.io/address/0x7379651E169e63272ec57Ce14f2BfC023e28382E" target="_blank" class="address">
+                            0x7379...382E
+                        </a>
+                    </div>
+                    <div class="task-time">
+                        <span class="label">Submitted</span>
+                        <time datetime="2026-02-24">Feb 24, 2026</time>
+                    </div>
+                    <a href="https://sepolia.arbiscan.io/tx/0x3242ab3fcc595df1ea99fb19a654fe55879192a62ee6d81f05c7a5937a5abe7e" target="_blank" class="btn btn-secondary btn-small">
+                        View on Arbiscan
+                    </a>
+                </div>
+            </article>
+
+            <!-- Empty State (shown when no tasks match filter) -->
+            <div class="empty-state" id="empty-state" style="display: none;">
+                <div class="empty-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="64" height="64">
+                        <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/>
+                        <rect x="9" y="3" width="6" height="4" rx="1"/>
+                        <path d="M9 12h6M9 16h6"/>
+                    </svg>
+                </div>
+                <h3>No tasks found</h3>
+                <p>No tasks match your current filters. Try adjusting your search criteria.</p>
+            </div>
+
+            <!-- Coming Soon Placeholder -->
+            <div class="coming-soon-card">
+                <h3>More Research Coming Soon</h3>
+                <p>As researchers submit AI tasks to the network, they'll appear here. Want to be the first?</p>
+                <a href="manual.html#researchers" class="btn btn-primary">Submit a Task</a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- How to Submit -->
+    <section class="submit-cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Have Research to Run?</h2>
+                <p>Submit your AI models to the decentralized compute network. Pay only for what you use.</p>
+                <div class="cta-buttons">
+                    <a href="manual.html#researchers" class="btn btn-primary btn-large">Researcher Guide</a>
+                    <a href="https://github.com/oarn-network/oarn-docs" class="btn btn-secondary btn-large" target="_blank">Documentation</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Network Info -->
+    <section class="network-info">
+        <div class="container">
+            <h3>Network Contracts</h3>
+            <div class="contracts-mini">
+                <div class="contract-mini-item">
+                    <span class="contract-name">TaskRegistry</span>
+                    <code>0x4Dc9dD73834E94545cF041091e1A743FBD09a60f</code>
+                    <a href="https://sepolia.arbiscan.io/address/0x4Dc9dD73834E94545cF041091e1A743FBD09a60f" target="_blank">View</a>
+                </div>
+                <div class="contract-mini-item">
+                    <span class="contract-name">OARNRegistry</span>
+                    <code>0xa122518Cb6E66A804fc37EB26c8a7aF309dCF04C</code>
+                    <a href="https://sepolia.arbiscan.io/address/0xa122518Cb6E66A804fc37EB26c8a7aF309dCF04C" target="_blank">View</a>
+                </div>
+            </div>
+            <p class="network-note">Currently deployed on Arbitrum Sepolia (Testnet)</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <img src="logo.png" alt="OARN Logo" class="logo-img">
+                        <span class="logo-text">OARN</span>
+                    </a>
+                    <p>Open AI Research Network</p>
+                    <p class="footer-tagline">Decentralized AI for open science</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="https://github.com/oarn-network/oarn-docs">Documentation</a></li>
+                            <li><a href="https://github.com/oarn-network/oarn-docs/blob/main/decentralized-ai-whitepaper.md">Whitepaper</a></li>
+                            <li><a href="https://github.com/oarn-network/oarn-docs/blob/main/api-reference.md">API Reference</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Developers</h4>
+                        <ul>
+                            <li><a href="https://github.com/oarn-network/oarn-node">Node Software</a></li>
+                            <li><a href="https://github.com/oarn-network/oarn-contracts">Smart Contracts</a></li>
+                            <li><a href="https://github.com/oarn-network/oarn-docs/blob/main/CONTRIBUTING.md">Contribute</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Community</h4>
+                        <ul>
+                            <li><a href="https://github.com/oarn-network" target="_blank">GitHub</a></li>
+                            <li><a href="https://discord.gg/RsrQwNvt" target="_blank">Discord</a></li>
+                            <li><a href="https://twitter.com/OARNNetwork" target="_blank">Twitter</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 OARN. MIT License.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Task Explorer functionality
+        function refreshTasks() {
+            const btn = document.querySelector('.filter-bar .btn');
+            btn.textContent = 'Loading...';
+
+            // Simulate refresh (in production, this would fetch from blockchain)
+            setTimeout(() => {
+                btn.innerHTML = `
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                        <path d="M23 4v6h-6M1 20v-6h6"/>
+                        <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+                    </svg>
+                    Refresh
+                `;
+            }, 1000);
+        }
+
+        // Filter functionality (placeholder for future blockchain integration)
+        document.querySelectorAll('.filter-bar select').forEach(select => {
+            select.addEventListener('change', () => {
+                console.log('Filter changed:', select.id, select.value);
+                // In production: filter tasks based on selection
+            });
+        });
+    </script>
+</body>
+</html>
