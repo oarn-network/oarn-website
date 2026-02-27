@@ -793,6 +793,281 @@ section {
     text-align: center;
 }
 
+/* Manual Page */
+.manual-header {
+    padding: 120px 0 60px;
+    background: var(--background);
+    text-align: center;
+}
+
+.manual-header h1 {
+    font-size: 48px;
+    margin-bottom: 16px;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.manual-nav {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 48px;
+    flex-wrap: wrap;
+}
+
+.manual-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 32px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.manual-nav-item:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.nav-icon {
+    font-size: 24px;
+}
+
+.manual-section {
+    padding: 80px 0;
+}
+
+.manual-section.alt-bg {
+    background: var(--background-light);
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.section-icon {
+    font-size: 48px;
+    display: block;
+    margin-bottom: 16px;
+}
+
+.section-header h2 {
+    font-size: 36px;
+    margin-bottom: 12px;
+}
+
+.section-header p {
+    color: var(--text-muted);
+    font-size: 18px;
+}
+
+.guide-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.step-card {
+    display: flex;
+    gap: 24px;
+    padding: 32px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    margin-bottom: 24px;
+}
+
+.step-card:hover {
+    border-color: var(--primary);
+}
+
+.step-number {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient);
+    border-radius: 50%;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.step-content {
+    flex: 1;
+}
+
+.step-content h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.step-content > p {
+    color: var(--text-muted);
+    margin-bottom: 20px;
+}
+
+.step-details {
+    background: var(--background);
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.step-details h4 {
+    font-size: 14px;
+    color: var(--accent);
+    margin: 20px 0 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.step-details h4:first-child {
+    margin-top: 0;
+}
+
+.step-details ol,
+.step-details ul {
+    margin-left: 20px;
+    color: var(--text-muted);
+}
+
+.step-details li {
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+
+.step-details ul ul {
+    margin-top: 8px;
+}
+
+.step-details pre {
+    background: var(--secondary);
+    border-radius: 8px;
+    padding: 16px;
+    overflow-x: auto;
+    margin: 12px 0;
+}
+
+.step-details code {
+    font-family: 'Fira Code', 'Courier New', monospace;
+    font-size: 13px;
+    color: var(--accent);
+}
+
+.step-details pre code {
+    color: var(--text);
+}
+
+.step-details p {
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+.step-details a {
+    color: var(--primary-light);
+}
+
+.step-details a:hover {
+    text-decoration: underline;
+}
+
+.requirements-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+}
+
+.requirements-table td {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.requirements-table td:first-child {
+    color: var(--text);
+    font-weight: 500;
+    width: 140px;
+}
+
+.requirements-table td:last-child {
+    color: var(--text-muted);
+}
+
+.requirements-table code {
+    font-size: 12px;
+    background: var(--surface);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.token-info {
+    padding: 20px;
+    background: var(--surface);
+    border-radius: 12px;
+    margin: 16px 0;
+}
+
+.token-info h4 {
+    color: var(--text) !important;
+    margin-bottom: 16px !important;
+}
+
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+}
+
+.faq-item {
+    padding: 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.faq-item h4 {
+    font-size: 16px;
+    margin-bottom: 12px;
+    color: var(--text);
+}
+
+.faq-item p {
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.faq-item a {
+    color: var(--primary-light);
+}
+
+.nav-links a.active {
+    color: var(--primary-light);
+}
+
+@media (max-width: 768px) {
+    .manual-header h1 {
+        font-size: 32px;
+    }
+
+    .manual-nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .step-card {
+        flex-direction: column;
+    }
+
+    .step-number {
+        align-self: flex-start;
+    }
+}
+
 /* Footer */
 .footer {
     background: var(--secondary);

@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual - OARN Network</title>
+    <meta name="description" content="Step-by-step guides for researchers, node operators, and investors on the OARN Network.">
+    <link rel="canonical" href="https://oarn-network.github.io/oarn-website/manual.html">
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="logo.png" alt="OARN Logo" class="logo-img">
+                <span class="logo-text">OARN</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="index.html#how-it-works">How It Works</a></li>
+                <li><a href="index.html#tokenomics">Tokenomics</a></li>
+                <li><a href="index.html#community">Community</a></li>
+                <li><a href="manual.html" class="active">Manual</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a href="https://github.com/oarn-network" class="btn btn-secondary" target="_blank">GitHub</a>
+                <a href="index.html#get-started" class="btn btn-primary">Get Started</a>
+            </div>
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Manual Header -->
+    <section class="manual-header">
+        <div class="container">
+            <h1>OARN Manual</h1>
+            <p class="section-subtitle">Step-by-step guides for getting started with the OARN Network</p>
+
+            <div class="manual-nav">
+                <a href="#researchers" class="manual-nav-item">
+                    <span class="nav-icon">🔬</span>
+                    <span>For Researchers</span>
+                </a>
+                <a href="#node-operators" class="manual-nav-item">
+                    <span class="nav-icon">🖥️</span>
+                    <span>For Node Operators</span>
+                </a>
+                <a href="#investors" class="manual-nav-item">
+                    <span class="nav-icon">📈</span>
+                    <span>For Investors</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Researchers Guide -->
+    <section id="researchers" class="manual-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-icon">🔬</span>
+                <h2>For Researchers</h2>
+                <p>Submit AI inference tasks to the decentralized compute network</p>
+            </div>
+
+            <div class="guide-content">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Set Up Your Wallet</h3>
+                        <p>You'll need an Ethereum-compatible wallet to interact with OARN.</p>
+                        <div class="step-details">
+                            <h4>Option A: MetaMask (Recommended for beginners)</h4>
+                            <ol>
+                                <li>Install <a href="https://metamask.io" target="_blank">MetaMask</a> browser extension</li>
+                                <li>Create a new wallet and securely store your seed phrase</li>
+                                <li>Add Arbitrum Sepolia network:
+                                    <ul>
+                                        <li>Network Name: <code>Arbitrum Sepolia</code></li>
+                                        <li>RPC URL: <code>https://sepolia-rollup.arbitrum.io/rpc</code></li>
+                                        <li>Chain ID: <code>421614</code></li>
+                                        <li>Currency: <code>ETH</code></li>
+                                        <li>Explorer: <code>https://sepolia.arbiscan.io</code></li>
+                                    </ul>
+                                </li>
+                            </ol>
+                            <h4>Option B: Any Web3 Wallet</h4>
+                            <p>Rabby, Rainbow, or any wallet supporting Arbitrum works fine.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Get Testnet ETH</h3>
+                        <p>You need testnet ETH for gas fees on Arbitrum Sepolia.</p>
+                        <div class="step-details">
+                            <ol>
+                                <li>Get Sepolia ETH from a faucet:
+                                    <ul>
+                                        <li><a href="https://sepoliafaucet.com" target="_blank">sepoliafaucet.com</a></li>
+                                        <li><a href="https://www.alchemy.com/faucets/ethereum-sepolia" target="_blank">Alchemy Sepolia Faucet</a></li>
+                                    </ul>
+                                </li>
+                                <li>Bridge to Arbitrum Sepolia:
+                                    <ul>
+                                        <li>Visit <a href="https://bridge.arbitrum.io" target="_blank">bridge.arbitrum.io</a></li>
+                                        <li>Connect wallet and select Sepolia → Arbitrum Sepolia</li>
+                                        <li>Bridge 0.1 ETH (takes ~10 minutes)</li>
+                                    </ul>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Prepare Your AI Model</h3>
+                        <p>Package your model for decentralized execution.</p>
+                        <div class="step-details">
+                            <h4>Supported Formats</h4>
+                            <ul>
+                                <li><strong>ONNX</strong> - Recommended for cross-platform compatibility</li>
+                                <li><strong>PyTorch</strong> - .pt or .pth files</li>
+                                <li><strong>TensorFlow</strong> - SavedModel or .h5 format</li>
+                            </ul>
+                            <h4>Converting to ONNX</h4>
+                            <pre><code># PyTorch to ONNX
+import torch
+model = YourModel()
+model.load_state_dict(torch.load('model.pt'))
+dummy_input = torch.randn(1, 3, 224, 224)
+torch.onnx.export(model, dummy_input, "model.onnx")</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Upload to IPFS</h3>
+                        <p>Store your model and input data on the decentralized web.</p>
+                        <div class="step-details">
+                            <h4>Option A: Pinata (Easy)</h4>
+                            <ol>
+                                <li>Create account at <a href="https://pinata.cloud" target="_blank">pinata.cloud</a></li>
+                                <li>Upload your model file</li>
+                                <li>Copy the CID (e.g., <code>QmXyz...</code>)</li>
+                            </ol>
+                            <h4>Option B: IPFS CLI</h4>
+                            <pre><code># Install IPFS
+curl -sSL https://dist.ipfs.tech/kubo/v0.24.0/kubo_v0.24.0_linux-amd64.tar.gz | tar -xz
+sudo ./kubo/install.sh
+
+# Add your file
+ipfs add model.onnx
+# Returns: added QmXyz... model.onnx</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Submit a Task</h3>
+                        <p>Create and submit your compute task to the network.</p>
+                        <div class="step-details">
+                            <h4>Using the SDK (Coming Soon)</h4>
+                            <pre><code>import { OARNClient } from '@oarn/sdk';
+
+const client = new OARNClient({
+  network: 'arbitrum-sepolia',
+  wallet: process.env.PRIVATE_KEY
+});
+
+const taskId = await client.submitTask({
+  modelCid: 'QmYourModelCID...',
+  inputCid: 'QmYourInputCID...',
+  requirements: {
+    framework: 'onnx',
+    minRam: '4GB',
+    gpu: 'optional'
+  },
+  rewardPerNode: '0.01', // ETH
+  requiredNodes: 1,
+  deadline: 3600 // 1 hour
+});
+
+console.log('Task submitted:', taskId);</code></pre>
+
+                            <h4>Direct Contract Interaction</h4>
+                            <p>Advanced users can interact directly with the TaskRegistry contract:</p>
+                            <ul>
+                                <li>Contract: <code>0x4Dc9dD73834E94545cF041091e1A743FBD09a60f</code></li>
+                                <li>Function: <code>submitTask(modelHash, inputHash, requirements, rewardPerNode, requiredNodes, deadline)</code></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <h3>Retrieve Results</h3>
+                        <p>Once a node completes your task, retrieve the output.</p>
+                        <div class="step-details">
+                            <pre><code>// Check task status
+const task = await client.getTask(taskId);
+console.log('Status:', task.status);
+
+// Get result when complete
+if (task.status === 'completed') {
+  const result = await client.getResult(taskId);
+  console.log('Output CID:', result.outputCid);
+
+  // Download from IPFS
+  const output = await ipfs.cat(result.outputCid);
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Node Operators Guide -->
+    <section id="node-operators" class="manual-section alt-bg">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-icon">🖥️</span>
+                <h2>For Node Operators</h2>
+                <p>Run a compute node and earn COMP rewards for processing AI tasks</p>
+            </div>
+
+            <div class="guide-content">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Check System Requirements</h3>
+                        <p>Ensure your system meets the minimum specifications.</p>
+                        <div class="step-details">
+                            <h4>Minimum Requirements</h4>
+                            <table class="requirements-table">
+                                <tr><td>CPU</td><td>4 cores, 2.5GHz+</td></tr>
+                                <tr><td>RAM</td><td>8 GB</td></tr>
+                                <tr><td>Storage</td><td>50 GB SSD</td></tr>
+                                <tr><td>Network</td><td>10 Mbps stable connection</td></tr>
+                                <tr><td>OS</td><td>Linux (Ubuntu 22.04+), macOS, Windows 10+</td></tr>
+                            </table>
+                            <h4>Recommended (for better rewards)</h4>
+                            <table class="requirements-table">
+                                <tr><td>CPU</td><td>8+ cores</td></tr>
+                                <tr><td>RAM</td><td>32 GB</td></tr>
+                                <tr><td>GPU</td><td>NVIDIA RTX 3060+ (8GB VRAM)</td></tr>
+                                <tr><td>Storage</td><td>500 GB NVMe SSD</td></tr>
+                                <tr><td>Network</td><td>100 Mbps+</td></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Install Prerequisites</h3>
+                        <p>Install the required dependencies.</p>
+                        <div class="step-details">
+                            <h4>Linux (Ubuntu/Debian)</h4>
+                            <pre><code># Update system
+sudo apt update && sudo apt upgrade -y
+
+# Install Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source ~/.cargo/env
+
+# Install build dependencies
+sudo apt install -y build-essential pkg-config libssl-dev
+
+# (Optional) Install NVIDIA drivers for GPU support
+sudo apt install -y nvidia-driver-535</code></pre>
+
+                            <h4>macOS</h4>
+                            <pre><code># Install Homebrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Install Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source ~/.cargo/env</code></pre>
+
+                            <h4>Windows</h4>
+                            <pre><code># Install Rust from rustup.rs
+# Download and run rustup-init.exe
+
+# Install Visual Studio Build Tools
+# Download from visualstudio.microsoft.com</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Download & Build OARN Node</h3>
+                        <p>Get the node software from GitHub.</p>
+                        <div class="step-details">
+                            <pre><code># Clone repository
+git clone https://github.com/oarn-network/oarn-node.git
+cd oarn-node
+
+# Build release version
+cargo build --release
+
+# Verify installation
+./target/release/oarn-node --version</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Initialize Configuration</h3>
+                        <p>Set up your node configuration and wallet.</p>
+                        <div class="step-details">
+                            <pre><code># Initialize node (creates config and wallet)
+./target/release/oarn-node init
+
+# This creates:
+# ~/.oarn/config.toml - Node configuration
+# ~/.oarn/keystore.json - Encrypted wallet</code></pre>
+
+                            <h4>Edit Configuration</h4>
+                            <pre><code># Open config file
+nano ~/.oarn/config.toml</code></pre>
+
+                            <h4>Key Settings</h4>
+                            <pre><code>[node]
+mode = "standard"           # standard, validatorrouted, or local
+port = 4001                 # P2P port
+
+[compute]
+max_concurrent_tasks = 2    # Tasks to run simultaneously
+max_ram_mb = 8192          # RAM limit per task
+max_vram_mb = 6144         # GPU VRAM limit
+supported_frameworks = ["onnx", "pytorch"]
+
+[wallet]
+# Your wallet will be auto-generated
+# Fund it with testnet ETH for gas
+
+[privacy]
+tor_enabled = false         # Enable for anonymity</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Fund Your Node Wallet</h3>
+                        <p>Your node needs ETH for gas fees when claiming rewards.</p>
+                        <div class="step-details">
+                            <pre><code># Display your node's wallet address
+./target/release/oarn-node wallet address
+
+# Output: 0x1234...5678</code></pre>
+                            <p>Send 0.05 testnet ETH to this address using the steps from the Researcher guide.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <h3>Start Your Node</h3>
+                        <p>Launch the node and begin accepting tasks.</p>
+                        <div class="step-details">
+                            <pre><code># Start node in foreground
+./target/release/oarn-node start
+
+# Or run as background service (Linux)
+sudo cp oarn-node.service /etc/systemd/system/
+sudo systemctl enable oarn-node
+sudo systemctl start oarn-node
+
+# Check status
+sudo systemctl status oarn-node</code></pre>
+
+                            <h4>What You'll See</h4>
+                            <pre><code>[INFO] OARN Node v0.1.0 starting...
+[INFO] Wallet: 0x1234...5678
+[INFO] Discovering network via ENS...
+[INFO] Connected to 12 peers
+[INFO] Listening on /ip4/0.0.0.0/tcp/4001
+[INFO] Ready to accept tasks
+[INFO] Capabilities: onnx, pytorch | RAM: 8GB | GPU: RTX 3060</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">7</div>
+                    <div class="step-content">
+                        <h3>Monitor & Earn</h3>
+                        <p>Track your node's performance and earnings.</p>
+                        <div class="step-details">
+                            <pre><code># Check node status
+./target/release/oarn-node status
+
+# View earnings
+./target/release/oarn-node wallet balance
+
+# View completed tasks
+./target/release/oarn-node tasks history</code></pre>
+
+                            <h4>Maximizing Earnings</h4>
+                            <ul>
+                                <li><strong>Uptime</strong> - Keep your node running 24/7</li>
+                                <li><strong>GPU</strong> - Nodes with GPUs earn more per task</li>
+                                <li><strong>Bandwidth</strong> - Faster connections = more tasks</li>
+                                <li><strong>Reliability</strong> - Complete tasks on time to build reputation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Investors Guide -->
+    <section id="investors" class="manual-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-icon">📈</span>
+                <h2>For Investors</h2>
+                <p>Understand the OARN ecosystem and participate in governance</p>
+            </div>
+
+            <div class="guide-content">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Understand the Token Model</h3>
+                        <p>OARN uses a dual-token system for different purposes.</p>
+                        <div class="step-details">
+                            <div class="token-info">
+                                <h4>GOV Token (Governance)</h4>
+                                <ul>
+                                    <li><strong>Supply:</strong> 100,000,000 (Fixed)</li>
+                                    <li><strong>Purpose:</strong> Voting, staking, protocol governance</li>
+                                    <li><strong>Contract:</strong> <code>0xB97eDD49C225d2c43e7203aB9248cAbED2B268d3</code></li>
+                                </ul>
+                                <p>GOV holders vote on protocol upgrades, fee structures, treasury allocation, and network parameters.</p>
+                            </div>
+                            <div class="token-info">
+                                <h4>COMP Token (Compute)</h4>
+                                <ul>
+                                    <li><strong>Supply:</strong> Inflationary (decreasing emissions)</li>
+                                    <li><strong>Purpose:</strong> Task rewards, payments</li>
+                                    <li><strong>Contract:</strong> <code>0x24249A523A251E38CB0001daBd54DD44Ea8f1838</code></li>
+                                </ul>
+                                <p>COMP is earned by node operators and spent by researchers. Optional 2% burn on transfers.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Set Up a Wallet</h3>
+                        <p>You need a wallet to hold and manage your tokens.</p>
+                        <div class="step-details">
+                            <h4>Recommended Wallets</h4>
+                            <ul>
+                                <li><strong>Hardware (Most Secure):</strong> Ledger, Trezor</li>
+                                <li><strong>Browser:</strong> MetaMask, Rabby</li>
+                                <li><strong>Mobile:</strong> Rainbow, Trust Wallet</li>
+                            </ul>
+                            <h4>Add OARN Tokens to Wallet</h4>
+                            <p>Import custom tokens using these contract addresses:</p>
+                            <table class="requirements-table">
+                                <tr><td>GOV Token</td><td><code>0xB97eDD49C225d2c43e7203aB9248cAbED2B268d3</code></td></tr>
+                                <tr><td>COMP Token</td><td><code>0x24249A523A251E38CB0001daBd54DD44Ea8f1838</code></td></tr>
+                                <tr><td>Network</td><td>Arbitrum Sepolia (Testnet)</td></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Acquire GOV Tokens</h3>
+                        <p>Get GOV tokens to participate in governance.</p>
+                        <div class="step-details">
+                            <h4>Current Phase: Testnet</h4>
+                            <p>OARN is currently on testnet. GOV tokens will be distributed at mainnet launch:</p>
+                            <ul>
+                                <li><strong>40%</strong> - Early compute contributors (airdrop)</li>
+                                <li><strong>30%</strong> - Public genesis sale</li>
+                                <li><strong>20%</strong> - DAO treasury</li>
+                                <li><strong>10%</strong> - Core team (4-year vesting)</li>
+                            </ul>
+                            <h4>How to Qualify for Airdrop</h4>
+                            <ol>
+                                <li>Run a compute node on testnet</li>
+                                <li>Complete tasks successfully</li>
+                                <li>Participate in community discussions</li>
+                                <li>Report bugs and provide feedback</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Participate in Governance</h3>
+                        <p>Use your GOV tokens to shape the protocol's future.</p>
+                        <div class="step-details">
+                            <h4>Governance Process</h4>
+                            <ol>
+                                <li><strong>Discussion</strong> - Ideas shared on Discord/forum</li>
+                                <li><strong>Proposal</strong> - Formal proposal created (requires stake)</li>
+                                <li><strong>Voting</strong> - GOV holders vote (quadratic voting)</li>
+                                <li><strong>Execution</strong> - Passed proposals implemented</li>
+                            </ol>
+                            <h4>What You Can Vote On</h4>
+                            <ul>
+                                <li>Protocol upgrades and new features</li>
+                                <li>Fee structures and reward rates</li>
+                                <li>Treasury spending and grants</li>
+                                <li>Network parameters (min stake, slashing)</li>
+                            </ul>
+                            <h4>Delegate Voting Power</h4>
+                            <pre><code>// Delegate to yourself
+await govToken.delegate(yourAddress);
+
+// Or delegate to someone else
+await govToken.delegate(delegateAddress);</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Stake for Infrastructure</h3>
+                        <p>Stake GOV tokens to become an RPC provider or bootstrap node.</p>
+                        <div class="step-details">
+                            <h4>RPC Provider</h4>
+                            <p>Run blockchain RPC endpoints for the network.</p>
+                            <ul>
+                                <li><strong>Minimum Stake:</strong> 10,000 GOV</li>
+                                <li><strong>Rewards:</strong> Share of protocol fees</li>
+                                <li><strong>Risk:</strong> Slashing for downtime</li>
+                            </ul>
+                            <h4>Bootstrap Node</h4>
+                            <p>Help new nodes discover the P2P network.</p>
+                            <ul>
+                                <li><strong>Minimum Stake:</strong> 5,000 GOV</li>
+                                <li><strong>Rewards:</strong> Share of protocol fees</li>
+                                <li><strong>Risk:</strong> Slashing for unavailability</li>
+                            </ul>
+                            <h4>Register as Provider</h4>
+                            <pre><code>// Approve GOV spending
+await govToken.approve(registryAddress, stakeAmount);
+
+// Register as RPC provider
+await registry.registerRpcProvider(
+  "https://your-rpc.example.com",
+  stakeAmount
+);</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <h3>Track Network Metrics</h3>
+                        <p>Monitor the health and growth of the OARN network.</p>
+                        <div class="step-details">
+                            <h4>Key Metrics to Watch</h4>
+                            <ul>
+                                <li><strong>Active Nodes</strong> - Number of compute nodes online</li>
+                                <li><strong>Tasks Completed</strong> - Daily/weekly task volume</li>
+                                <li><strong>COMP Emissions</strong> - Tokens distributed to nodes</li>
+                                <li><strong>Total Value Locked</strong> - GOV staked in protocol</li>
+                            </ul>
+                            <h4>Resources</h4>
+                            <ul>
+                                <li><a href="https://sepolia.arbiscan.io/address/0xa122518Cb6E66A804fc37EB26c8a7aF309dCF04C" target="_blank">OARNRegistry on Arbiscan</a></li>
+                                <li><a href="https://github.com/oarn-network" target="_blank">GitHub Repositories</a></li>
+                                <li><a href="https://discord.gg/RsrQwNvt" target="_blank">Discord Community</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="manual-section alt-bg">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h4>Is OARN live on mainnet?</h4>
+                    <p>Not yet. OARN is currently on Arbitrum Sepolia testnet. Mainnet launch is planned after security audits are complete.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>How much can I earn running a node?</h4>
+                    <p>Earnings depend on your hardware, uptime, and network demand. Nodes with GPUs typically earn more per task.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>What AI models are supported?</h4>
+                    <p>Currently ONNX models are best supported. PyTorch and TensorFlow support is in development.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Is my data private?</h4>
+                    <p>Model inputs are visible to the executing node. For sensitive data, enable Tor routing and use encrypted inputs.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>How do I report bugs?</h4>
+                    <p>Open an issue on <a href="https://github.com/oarn-network" target="_blank">GitHub</a> or report in our <a href="https://discord.gg/RsrQwNvt" target="_blank">Discord</a>.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Can I run a node on a VPS?</h4>
+                    <p>Yes! Any Linux VPS with sufficient resources works. Cloud GPU instances can also be used.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <img src="logo.png" alt="OARN Logo" class="logo-img">
+                        <span class="logo-text">OARN</span>
+                    </a>
+                    <p>Open AI Research Network</p>
+                    <p class="footer-tagline">Decentralized AI for open science</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="https://github.com/oarn-network/oarn-docs">Documentation</a></li>
+                            <li><a href="https://github.com/oarn-network/oarn-docs/blob/main/decentralized-ai-whitepaper.md">Whitepaper</a></li>
+                            <li><a href="https://github.com/oarn-network/oarn-docs/blob/main/api-reference.md">API Reference</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Developers</h4>
+                        <ul>
+                            <li><a href="https://github.com/oarn-network/oarn-node">Node Software</a></li>
+                            <li><a href="https://github.com/oarn-network/oarn-contracts">Smart Contracts</a></li>
+                            <li><a href="https://github.com/oarn-network/oarn-docs/blob/main/CONTRIBUTING.md">Contribute</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Community</h4>
+                        <ul>
+                            <li><a href="https://github.com/oarn-network" target="_blank">GitHub</a></li>
+                            <li><a href="https://discord.gg/RsrQwNvt" target="_blank">Discord</a></li>
+                            <li><a href="https://twitter.com/OARNNetwork" target="_blank">Twitter</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 OARN. MIT License.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
