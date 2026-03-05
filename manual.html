@@ -177,28 +177,28 @@ ipfs add model.onnx
                         <h3>Submit a Task</h3>
                         <p>Create and submit your compute task to the network.</p>
                         <div class="step-details">
-                            <h4>Using the SDK (Coming Soon)</h4>
-                            <pre><code>import { OARNClient } from '@oarn/sdk';
+                            <h4>Using the SDK</h4>
+                            <pre><code>npm install @oarnnetwork/sdk</code></pre>
+                            <pre><code>import { OARNClient, cidToBytes32 } from '@oarnnetwork/sdk';
 
 const client = new OARNClient({
-  network: 'arbitrum-sepolia',
-  wallet: process.env.PRIVATE_KEY
+  privateKey: process.env.PRIVATE_KEY
 });
 
-const taskId = await client.submitTask({
-  modelCid: 'QmYourModelCID...',
-  inputCid: 'QmYourInputCID...',
-  requirements: {
-    framework: 'onnx',
-    minRam: '4GB',
-    gpu: 'optional'
-  },
-  rewardPerNode: '0.01', // ETH
-  requiredNodes: 1,
-  deadline: 3600 // 1 hour
+// Upload model and input to IPFS, then convert CIDs to bytes32
+const modelHash = cidToBytes32('QmYourModelCID...');
+const inputHash = cidToBytes32('QmYourInputCID...');
+
+const { taskId, tx } = await client.submitTask({
+  modelHash,
+  inputHash,
+  rewardPerNode: 10000000000000000n, // 0.01 ETH
+  requiredNodes: 3,
+  deadline: Math.floor(Date.now() / 1000) + 3600
 });
 
 console.log('Task submitted:', taskId);</code></pre>
+                            <p>SDK available on <a href="https://www.npmjs.com/package/@oarnnetwork/sdk" target="_blank">npm</a> and <a href="https://github.com/oarn-network/oarn-sdk" target="_blank">GitHub</a>.</p>
 
                             <h4>Direct Contract Interaction</h4>
                             <p>Advanced users can interact directly with the TaskRegistryV2 contract:</p>
