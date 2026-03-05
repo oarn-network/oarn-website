@@ -622,6 +622,16 @@ section {
     color: var(--primary);
 }
 
+.path-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.path-buttons .btn {
+    flex: 1;
+    text-align: center;
+}
+
 /* Community */
 .community {
     background: var(--background);
