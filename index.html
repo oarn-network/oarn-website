@@ -56,16 +56,16 @@
                 </div>
                 <div class="hero-stats">
                     <div class="stat">
+                        <span class="stat-value">10K+</span>
+                        <span class="stat-label">Batch Inputs</span>
+                    </div>
+                    <div class="stat">
                         <span class="stat-value">3+</span>
                         <span class="stat-label">Node Consensus</span>
                     </div>
                     <div class="stat">
-                        <span class="stat-value">183</span>
-                        <span class="stat-label">Tests Passing</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-value">MIT</span>
-                        <span class="stat-label">Licensed</span>
+                        <span class="stat-value">99.99%</span>
+                        <span class="stat-label">Gas Savings</span>
                     </div>
                 </div>
             </div>
@@ -126,12 +126,14 @@
                 <div class="feature-card">
                     <div class="feature-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="3"/>
-                            <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/>
+                            <rect x="3" y="3" width="7" height="7"/>
+                            <rect x="14" y="3" width="7" height="7"/>
+                            <rect x="14" y="14" width="7" height="7"/>
+                            <rect x="3" y="14" width="7" height="7"/>
                         </svg>
                     </div>
-                    <h3>Framework Agnostic</h3>
-                    <p>Support for ONNX, PyTorch, and more. Run any model on any compatible node.</p>
+                    <h3>Batch Processing</h3>
+                    <p>Submit 10,000+ parameter combinations in a single task. Nodes execute in parallel with 99.99% gas savings.</p>
                 </div>
 
                 <div class="feature-card">
@@ -297,21 +299,28 @@ cargo build --release
                 </div>
 
                 <div class="path-card">
-                    <h3>Submit Tasks</h3>
-                    <p>Run AI inference on the decentralized network</p>
+                    <h3>Submit Batch Tasks</h3>
+                    <p>Run thousands of parameter combinations in parallel</p>
                     <pre><code>npm install @oarnnetwork/sdk
 
-import { OARNClient } from '@oarnnetwork/sdk';
+import { OARNClient, generateParameterGrid }
+  from '@oarnnetwork/sdk';
 
 const client = new OARNClient({
   privateKey: process.env.PRIVATE_KEY
 });
 
-await client.submitTask({
-  modelHash, inputHash,
-  rewardPerNode: 10000000000000000n,
-  requiredNodes: 3, deadline
-});</code></pre>
+// Generate 10,000 parameter combinations
+const inputs = generateParameterGrid({
+  temperature: { min: 20, max: 40, steps: 100 },
+  concentration: { min: 0.1, max: 1.0, steps: 100 }
+});
+
+// Submit as single task (99.99% gas savings)
+const { taskId } = await client.submitBatchTask(
+  modelBuffer, inputs,
+  parseEther('0.1'), 5, deadline
+);</code></pre>
                     <div class="path-buttons">
                         <a href="https://www.npmjs.com/package/@oarnnetwork/sdk" class="btn btn-primary" target="_blank">npm</a>
                         <a href="https://github.com/oarn-network/oarn-sdk" class="btn btn-secondary" target="_blank">GitHub</a>
