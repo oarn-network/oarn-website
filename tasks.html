@@ -171,8 +171,8 @@
             <div class="contracts-mini">
                 <div class="contract-mini-item">
                     <span class="contract-name">TaskRegistryV2</span>
-                    <code>0x7b4898aDf69447d6ED3d62F6917CE10bD6519562</code>
-                    <a href="https://sepolia.arbiscan.io/address/0x7b4898aDf69447d6ED3d62F6917CE10bD6519562" target="_blank">View</a>
+                    <code>0xD15530ce13188EE88E43Ab07EDD9E8729fCc55D0</code>
+                    <a href="https://sepolia.arbiscan.io/address/0xD15530ce13188EE88E43Ab07EDD9E8729fCc55D0" target="_blank">View</a>
                 </div>
                 <div class="contract-mini-item">
                     <span class="contract-name">OARNRegistry</span>
@@ -183,6 +183,41 @@
             <p class="network-note">Currently deployed on Arbitrum Sepolia (Testnet) - Auto-refreshes every 30 seconds</p>
         </div>
     </section>
+
+    <!-- Fund Modal -->
+    <div id="fund-modal" class="modal">
+        <div class="modal-backdrop" onclick="closeFundModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Fund This Research</h3>
+                <button class="modal-close" onclick="closeFundModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="fund-task-info">
+                    Task <strong>#<span id="fund-task-id"></span></strong>
+                </p>
+                <p class="fund-current-reward">
+                    Current reward: <span id="current-reward"></span> ETH per node
+                    (<span id="fund-required-nodes"></span> nodes)
+                </p>
+                <div class="form-group">
+                    <label for="fund-amount">Amount to add (ETH)</label>
+                    <input type="number" id="fund-amount" step="0.001" min="0.001" placeholder="0.01">
+                    <p class="form-hint">New reward per node: <span id="new-reward-preview">-</span> ETH</p>
+                </div>
+                <div id="fund-status" class="fund-status"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeFundModal()">Cancel</button>
+                <button class="btn btn-primary" id="fund-submit-btn" onclick="submitFunding()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+                    </svg>
+                    Fund Task
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -234,7 +269,7 @@
         // Contract configuration
         const CONFIG = {
             rpcUrl: 'https://sepolia-rollup.arbitrum.io/rpc',
-            taskRegistryAddress: '0x4Dc9dD73834E94545cF041091e1A743FBD09a60f',
+            taskRegistryAddress: '0xD15530ce13188EE88E43Ab07EDD9E8729fCc55D0',
             chainId: 421614,
             refreshInterval: 30000 // 30 seconds
         };
@@ -248,15 +283,17 @@
             4: 'Expired'
         };
 
-        // TaskRegistry ABI (minimal for reading)
+        // TaskRegistry ABI (minimal for reading + funding)
         const TASK_REGISTRY_ABI = [
             "function taskCount() view returns (uint256)",
             "function tasks(uint256) view returns (uint256 id, address requester, bytes32 modelHash, bytes32 inputHash, string modelRequirements, uint256 rewardPerNode, uint256 requiredNodes, uint256 completedNodes, uint256 deadline, uint8 status, uint8 mode, uint256 createdAt)",
             "function getTaskResults(uint256 taskId) view returns (tuple(address node, bytes32 resultHash, uint256 submittedAt, bool verified, bool rewarded)[])",
+            "function fundTask(uint256 taskId) payable",
             "event TaskCreated(uint256 indexed taskId, address indexed requester, bytes32 modelHash, uint256 rewardPerNode, uint256 requiredNodes, uint8 mode)",
             "event TaskClaimed(uint256 indexed taskId, address indexed node)",
             "event ResultSubmitted(uint256 indexed taskId, address indexed node, bytes32 resultHash)",
-            "event TaskCompleted(uint256 indexed taskId, uint256 totalRewards)"
+            "event TaskCompleted(uint256 indexed taskId, uint256 totalRewards)",
+            "event TaskFunded(uint256 indexed taskId, address indexed funder, uint256 fundingAmount, uint256 newRewardPerNode)"
         ];
 
         let provider;
@@ -513,9 +550,19 @@
                             <span class="label">Created</span>
                             <time datetime="${createdAt.toISOString()}">${createdAt.toLocaleDateString()}</time>
                         </div>
-                        <a href="https://sepolia.arbiscan.io/address/${CONFIG.taskRegistryAddress}#readContract" target="_blank" class="btn btn-secondary btn-small">
-                            View on Arbiscan
-                        </a>
+                        <div class="task-actions">
+                            ${(task.effectiveStatus === 0 || task.effectiveStatus === 1) ?
+                                `<button class="btn btn-primary btn-small" onclick="openFundModal(${task.id}, '${rewardEth}', ${task.requiredNodes})">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+                                    </svg>
+                                    Fund Research
+                                </button>` : ''
+                            }
+                            <a href="https://sepolia.arbiscan.io/address/${CONFIG.taskRegistryAddress}#readContract" target="_blank" class="btn btn-secondary btn-small">
+                                View on Arbiscan
+                            </a>
+                        </div>
                     </div>
                 </article>
             `;
@@ -534,6 +581,144 @@
 
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', init);
+
+        // ============ Fund Modal Functions ============
+        let currentFundTaskId = null;
+        let currentRewardPerNode = 0;
+        let currentRequiredNodes = 0;
+
+        function openFundModal(taskId, currentReward, requiredNodes) {
+            currentFundTaskId = taskId;
+            currentRewardPerNode = parseFloat(currentReward);
+            currentRequiredNodes = requiredNodes;
+
+            document.getElementById('fund-task-id').textContent = taskId;
+            document.getElementById('current-reward').textContent = currentReward;
+            document.getElementById('fund-required-nodes').textContent = requiredNodes;
+            document.getElementById('fund-amount').value = '';
+            document.getElementById('new-reward-preview').textContent = '-';
+            document.getElementById('fund-status').innerHTML = '';
+            document.getElementById('fund-status').className = 'fund-status';
+
+            document.getElementById('fund-modal').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeFundModal() {
+            document.getElementById('fund-modal').classList.remove('show');
+            document.body.style.overflow = '';
+            currentFundTaskId = null;
+        }
+
+        // Update preview when amount changes
+        document.getElementById('fund-amount').addEventListener('input', function() {
+            const addAmount = parseFloat(this.value) || 0;
+            if (addAmount > 0 && currentRequiredNodes > 0) {
+                const currentPool = currentRewardPerNode * currentRequiredNodes;
+                const newPool = currentPool + addAmount;
+                const newRewardPerNode = newPool / currentRequiredNodes;
+                document.getElementById('new-reward-preview').textContent = newRewardPerNode.toFixed(6);
+            } else {
+                document.getElementById('new-reward-preview').textContent = '-';
+            }
+        });
+
+        async function submitFunding() {
+            const amountInput = document.getElementById('fund-amount');
+            const amount = parseFloat(amountInput.value);
+            const statusDiv = document.getElementById('fund-status');
+            const submitBtn = document.getElementById('fund-submit-btn');
+
+            if (!amount || amount <= 0) {
+                statusDiv.innerHTML = '<p class="error">Please enter a valid amount</p>';
+                statusDiv.className = 'fund-status error';
+                return;
+            }
+
+            if (!window.ethereum) {
+                statusDiv.innerHTML = '<p class="error">MetaMask not detected. Please install MetaMask to fund tasks.</p>';
+                statusDiv.className = 'fund-status error';
+                return;
+            }
+
+            try {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<span class="loading-spinner-small"></span> Connecting...';
+                statusDiv.innerHTML = '<p>Connecting to wallet...</p>';
+                statusDiv.className = 'fund-status';
+
+                // Request account access
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                const userAddress = accounts[0];
+
+                // Check network
+                const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+                if (parseInt(chainId, 16) !== CONFIG.chainId) {
+                    statusDiv.innerHTML = '<p class="error">Please switch to Arbitrum Sepolia network</p>';
+                    statusDiv.className = 'fund-status error';
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = 'Fund Task';
+                    return;
+                }
+
+                submitBtn.innerHTML = '<span class="loading-spinner-small"></span> Sending...';
+                statusDiv.innerHTML = '<p>Please confirm the transaction in MetaMask...</p>';
+
+                // Create provider and signer
+                const web3Provider = new ethers.BrowserProvider(window.ethereum);
+                const signer = await web3Provider.getSigner();
+
+                // Create contract with signer
+                const fundContract = new ethers.Contract(CONFIG.taskRegistryAddress, TASK_REGISTRY_ABI, signer);
+
+                // Send funding transaction
+                const amountWei = ethers.parseEther(amount.toString());
+                const tx = await fundContract.fundTask(currentFundTaskId, { value: amountWei });
+
+                statusDiv.innerHTML = '<p>Transaction submitted. Waiting for confirmation...</p>';
+
+                // Wait for confirmation
+                await tx.wait();
+
+                statusDiv.innerHTML = `
+                    <p class="success">
+                        ✓ Successfully funded Task #${currentFundTaskId} with ${amount} ETH!
+                        <br><a href="https://sepolia.arbiscan.io/tx/${tx.hash}" target="_blank">View transaction</a>
+                    </p>
+                `;
+                statusDiv.className = 'fund-status success';
+
+                submitBtn.innerHTML = '✓ Funded!';
+
+                // Refresh tasks after a delay
+                setTimeout(() => {
+                    closeFundModal();
+                    loadTasks();
+                }, 2000);
+
+            } catch (error) {
+                console.error('Funding error:', error);
+                let errorMsg = error.message;
+                if (error.code === 4001) {
+                    errorMsg = 'Transaction rejected by user';
+                } else if (error.message.includes('Task not fundable')) {
+                    errorMsg = 'This task cannot be funded (already completed or cancelled)';
+                } else if (error.message.includes('Task expired')) {
+                    errorMsg = 'This task has expired';
+                }
+                statusDiv.innerHTML = `<p class="error">Error: ${errorMsg}</p>`;
+                statusDiv.className = 'fund-status error';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Fund Task';
+            }
+        }
+
+        // Close modal on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && document.getElementById('fund-modal').classList.contains('show')) {
+                closeFundModal();
+            }
+        });
     </script>
 
     <style>
@@ -632,6 +817,186 @@
         #refresh-btn:disabled {
             opacity: 0.7;
             cursor: not-allowed;
+        }
+
+        /* Fund Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-backdrop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            position: relative;
+            background: var(--surface);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 480px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            animation: modalSlideIn 0.2s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.25rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            padding: 0;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            color: var(--text-primary);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .fund-task-info {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .fund-current-reward {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--background);
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .form-hint {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .form-hint span {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .fund-status {
+            padding: 0;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .fund-status p {
+            margin: 0;
+            padding: 0.75rem 1rem;
+        }
+
+        .fund-status.error p.error {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border-radius: 8px;
+        }
+
+        .fund-status.success p.success {
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+            border-radius: 8px;
+        }
+
+        .fund-status a {
+            color: inherit;
+            text-decoration: underline;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            padding: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .modal-footer .btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .task-actions .btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
     </style>
 </body>
