@@ -287,6 +287,87 @@
             height: 18px;
         }
 
+        /* Twitter fallback */
+        .twitter-fallback {
+            display: none;
+            text-align: center;
+            padding: 2rem 1rem;
+            background: var(--background);
+            border-radius: 12px;
+        }
+
+        .twitter-fallback.show {
+            display: block;
+        }
+
+        .twitter-fallback svg {
+            width: 48px;
+            height: 48px;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .twitter-fallback p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .twitter-fallback .fallback-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #1DA1F2;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .twitter-fallback .fallback-link:hover {
+            opacity: 0.8;
+        }
+
+        .twitter-fallback .fallback-link svg {
+            width: 16px;
+            height: 16px;
+            color: #1DA1F2;
+            margin: 0;
+        }
+
+        .recent-posts {
+            margin-top: 1.5rem;
+            text-align: left;
+        }
+
+        .recent-posts h4 {
+            font-size: 0.85rem;
+            color: var(--text);
+            margin-bottom: 0.75rem;
+        }
+
+        .recent-post-item {
+            display: block;
+            padding: 0.75rem;
+            background: var(--surface);
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .recent-post-item:hover {
+            border-color: var(--primary);
+            color: var(--text);
+        }
+
+        .recent-post-item .post-date {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: block;
+            margin-top: 0.25rem;
+        }
+
         @media (max-width: 768px) {
             .blog-hero {
                 padding: 6rem 0 3rem;
@@ -487,7 +568,7 @@
                             </svg>
                             Latest from X
                         </h3>
-                        <div class="twitter-feed">
+                        <div class="twitter-feed" id="twitter-container">
                             <a class="twitter-timeline"
                                data-theme="dark"
                                data-chrome="noheader nofooter noborders transparent"
@@ -496,6 +577,36 @@
                                 Loading tweets...
                             </a>
                             <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+                            <!-- Fallback if Twitter embed fails -->
+                            <div class="twitter-fallback" id="twitter-fallback">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                                </svg>
+                                <p>Twitter feed unavailable</p>
+                                <a href="https://twitter.com/OARNNetwork" target="_blank" class="fallback-link">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                                    </svg>
+                                    View @OARNNetwork on X
+                                </a>
+
+                                <div class="recent-posts">
+                                    <h4>Recent Announcements</h4>
+                                    <a href="https://twitter.com/OARNNetwork" target="_blank" class="recent-post-item">
+                                        Real ONNX model execution now live - nodes can run actual ML inference
+                                        <span class="post-date">March 2026</span>
+                                    </a>
+                                    <a href="https://twitter.com/OARNNetwork" target="_blank" class="recent-post-item">
+                                        3-node consensus test successful on Arbitrum Sepolia testnet
+                                        <span class="post-date">March 2026</span>
+                                    </a>
+                                    <a href="https://twitter.com/OARNNetwork" target="_blank" class="recent-post-item">
+                                        GENESIS-001 MVP complete - insulin synthesis optimization ready
+                                        <span class="post-date">March 2026</span>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                         <a href="https://twitter.com/OARNNetwork" target="_blank" class="follow-btn">
                             <svg viewBox="0 0 24 24" fill="currentColor">
@@ -623,5 +734,32 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        // Twitter embed fallback
+        (function() {
+            const fallback = document.getElementById('twitter-fallback');
+            const container = document.getElementById('twitter-container');
+
+            // Check if Twitter widget loaded after 5 seconds
+            setTimeout(function() {
+                // Look for the Twitter iframe
+                const iframe = container.querySelector('iframe.twitter-timeline');
+                const timeline = container.querySelector('a.twitter-timeline');
+
+                // If no iframe was created or timeline link still visible, show fallback
+                if (!iframe && timeline) {
+                    fallback.classList.add('show');
+                    timeline.style.display = 'none';
+                }
+            }, 5000);
+
+            // Also listen for Twitter widget errors
+            window.addEventListener('message', function(e) {
+                if (e.origin.includes('twitter.com') && e.data && e.data.includes && e.data.includes('error')) {
+                    fallback.classList.add('show');
+                }
+            });
+        })();
+    </script>
 </body>
 </html>
