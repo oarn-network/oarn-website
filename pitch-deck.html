@@ -55,6 +55,45 @@
 
         .reveal .slides section {
             height: 100%;
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+        }
+
+        .reveal .slides {
+            overflow: visible !important;
+        }
+
+        /* Enable scrolling on slides with lots of content */
+        .reveal .slides section.scrollable {
+            overflow-y: scroll !important;
+            max-height: 100vh;
+        }
+
+        /* Navigation hint */
+        .nav-hint {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(99, 102, 241, 0.9);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            z-index: 1000;
+            animation: fadeOut 5s forwards;
+            animation-delay: 3s;
+        }
+
+        @keyframes fadeOut {
+            to { opacity: 0; pointer-events: none; }
+        }
+
+        .nav-hint kbd {
+            background: rgba(255,255,255,0.2);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            margin: 0 0.2rem;
         }
 
         .reveal .highlight {
@@ -674,6 +713,10 @@
         </div>
     </div>
 
+    <div class="nav-hint">
+        Use <kbd>&#8592;</kbd> <kbd>&#8594;</kbd> arrow keys or click arrows to navigate slides
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.js"></script>
     <script>
         Reveal.initialize({
@@ -681,9 +724,19 @@
             slideNumber: true,
             controls: true,
             progress: true,
-            center: true,
+            center: false,
             transition: 'slide',
-            backgroundTransition: 'fade'
+            backgroundTransition: 'fade',
+            width: 1200,
+            height: 700,
+            margin: 0.1,
+            minScale: 0.2,
+            maxScale: 1.5,
+            scrollActivationWidth: null,
+            view: 'scroll',
+            scrollLayout: 'full',
+            scrollSnap: 'mandatory',
+            scrollProgress: true
         });
     </script>
 </body>
