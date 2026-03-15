@@ -224,10 +224,7 @@ img {
     font-weight: 700;
     line-height: 1.1;
     margin-bottom: 24px;
-    background: linear-gradient(135deg, var(--text) 0%, var(--text-muted) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--text);
 }
 
 .hero-subtitle {
