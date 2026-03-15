@@ -301,6 +301,95 @@
         let allTasks = [];
         let refreshTimer;
 
+        // Demo tasks for testnet demonstration
+        const DEMO_TASKS = [
+            {
+                id: 1,
+                requester: '0x742d35Cc6634C0532925a3b844Bc9e7595f8E2d1',
+                modelHash: '0xQmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG',
+                inputHash: '0xQmZULkCELmmk5XNfCgTNCb2S46aWp1UFnz3tMf8M5M2K4d',
+                requirements: '{"framework":"ONNX","min_ram":"4GB","description":"Insulin synthesis optimization - GENESIS-001 MVP"}',
+                rewardPerNode: BigInt('10000000000000000'), // 0.01 ETH
+                requiredNodes: 3,
+                completedNodes: 3,
+                deadline: Math.floor(Date.now() / 1000) + 86400 * 7,
+                status: 2, // Completed
+                effectiveStatus: 2,
+                mode: 0,
+                createdAt: Math.floor(Date.now() / 1000) - 86400 * 3,
+                parsedRequirements: { framework: 'ONNX', min_ram: '4GB', description: 'Insulin synthesis optimization - GENESIS-001 MVP' },
+                isDemo: true
+            },
+            {
+                id: 2,
+                requester: '0x8Ba1f109551bD432803012645Ac136ddd64DBA72',
+                modelHash: '0xQmT5NvUtoM5nWFfrQdVrFtvGfKFmG7AHE8P34isapyhCxX',
+                inputHash: '0xQmWmyoMoctfbAaiEs2G46gpeUmhqFRDW6KWo64y5r581Vz',
+                requirements: '{"framework":"ONNX","min_ram":"8GB","description":"Drug interaction prediction model"}',
+                rewardPerNode: BigInt('15000000000000000'), // 0.015 ETH
+                requiredNodes: 3,
+                completedNodes: 1,
+                deadline: Math.floor(Date.now() / 1000) + 86400 * 5,
+                status: 1, // Active
+                effectiveStatus: 1,
+                mode: 0,
+                createdAt: Math.floor(Date.now() / 1000) - 86400,
+                parsedRequirements: { framework: 'ONNX', min_ram: '8GB', description: 'Drug interaction prediction model' },
+                isDemo: true
+            },
+            {
+                id: 3,
+                requester: '0x71C7656EC7ab88b098defB751B7401B5f6d8976F',
+                modelHash: '0xQmPZ9gcCEpqKTo6aq61g2nXGUhM4iCL3ewB6LDXZCtioEB',
+                inputHash: '0xQmYCvbfNbCwFR45HiNP45rwJgvatFxUQvRzLzLxPjJsGG7',
+                requirements: '{"framework":"ONNX","min_ram":"2GB","description":"Protein folding analysis - batch 1"}',
+                rewardPerNode: BigInt('8000000000000000'), // 0.008 ETH
+                requiredNodes: 5,
+                completedNodes: 0,
+                deadline: Math.floor(Date.now() / 1000) + 86400 * 14,
+                status: 0, // Pending
+                effectiveStatus: 0,
+                mode: 0,
+                createdAt: Math.floor(Date.now() / 1000) - 3600,
+                parsedRequirements: { framework: 'ONNX', min_ram: '2GB', description: 'Protein folding analysis - batch 1' },
+                isDemo: true
+            },
+            {
+                id: 4,
+                requester: '0x2546BcD3c84621e976D8185a91A922aE77ECEc30',
+                modelHash: '0xQmUNLLsPACCz1vLxQVkXqqLX5R1X345qqfHbsf67hvA3Nn',
+                inputHash: '0xQmNRCQWfgze6AbBCaT1rkrkV5tJ2aP4oTNPb5JZcXYywvK',
+                requirements: '{"framework":"ONNX","min_ram":"16GB","description":"Climate model optimization"}',
+                rewardPerNode: BigInt('25000000000000000'), // 0.025 ETH
+                requiredNodes: 3,
+                completedNodes: 3,
+                deadline: Math.floor(Date.now() / 1000) - 86400,
+                status: 2, // Completed
+                effectiveStatus: 2,
+                mode: 1, // SuperMajority
+                createdAt: Math.floor(Date.now() / 1000) - 86400 * 10,
+                parsedRequirements: { framework: 'ONNX', min_ram: '16GB', description: 'Climate model optimization' },
+                isDemo: true
+            },
+            {
+                id: 5,
+                requester: '0xbDA5747bFD65F08deb54cb465eB87D40e51B197E',
+                modelHash: '0xQmXoypizjW3WknFiJnKLwHCnL72vedxjQkDDP1mXWo6uco',
+                inputHash: '0xQmRKs2ZfuwvmZA3QAWmCqrGUjV9pxtBUDP3wuc6iVGnjA2',
+                requirements: '{"framework":"PyTorch","min_ram":"8GB","description":"Medical image classification"}',
+                rewardPerNode: BigInt('20000000000000000'), // 0.02 ETH
+                requiredNodes: 5,
+                completedNodes: 2,
+                deadline: Math.floor(Date.now() / 1000) + 86400 * 3,
+                status: 1, // Active
+                effectiveStatus: 1,
+                mode: 0,
+                createdAt: Math.floor(Date.now() / 1000) - 86400 * 2,
+                parsedRequirements: { framework: 'PyTorch', min_ram: '8GB', description: 'Medical image classification' },
+                isDemo: true
+            }
+        ];
+
         // Initialize connection
         async function init() {
             try {
@@ -390,8 +479,27 @@
                     }
                 }
 
+                // If no on-chain tasks, use demo tasks for testnet demonstration
+                if (allTasks.length === 0) {
+                    console.log('No on-chain tasks found. Loading demo tasks for demonstration.');
+                    allTasks = [...DEMO_TASKS];
+
+                    // Recalculate stats from demo tasks
+                    totalRewards = 0n;
+                    activeCount = 0;
+                    completedCount = 0;
+
+                    allTasks.forEach(task => {
+                        totalRewards += task.rewardPerNode * BigInt(task.requiredNodes);
+                        if (task.effectiveStatus === 1) activeCount++;
+                        if (task.effectiveStatus === 2) completedCount++;
+                    });
+
+                    document.getElementById('connection-status').textContent = 'Connected to Arbitrum Sepolia (Demo Mode)';
+                }
+
                 // Update stats
-                document.getElementById('total-tasks').textContent = count;
+                document.getElementById('total-tasks').textContent = allTasks.length;
                 document.getElementById('active-tasks').textContent = activeCount;
                 document.getElementById('completed-tasks').textContent = completedCount;
                 document.getElementById('total-rewards').textContent = ethers.formatEther(totalRewards);
@@ -483,18 +591,21 @@
             const createdAt = new Date(task.createdAt * 1000);
             const shortAddress = task.requester.slice(0, 6) + '...' + task.requester.slice(-4);
 
+            const description = task.parsedRequirements?.description || `${framework} Model Inference`;
+
             return `
-                <article class="task-card" data-task-id="${task.id}">
+                <article class="task-card ${task.isDemo ? 'demo-task' : ''}" data-task-id="${task.id}">
                     <div class="task-header">
                         <div class="task-id">
                             <span class="label">Task</span>
                             <span class="value">#${task.id}</span>
+                            ${task.isDemo ? '<span class="demo-badge">DEMO</span>' : ''}
                         </div>
                         <span class="task-status ${statusClass}">${statusText}</span>
                     </div>
 
                     <div class="task-body">
-                        <h3 class="task-title">${framework} Model Inference</h3>
+                        <h3 class="task-title">${description}</h3>
                         <p class="task-description">
                             ${task.effectiveStatus === 2 ?
                                 `Completed by ${task.completedNodes} node(s). Results verified on-chain.` :
@@ -997,6 +1108,35 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+        }
+
+        /* Demo task styling */
+        .demo-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .demo-task {
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .demo-task::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 12px 12px 0 0;
         }
     </style>
 </body>
