@@ -8,7 +8,7 @@
       { "label": "Dashboard", "class": "" }
     ],
     "link": {
-      "url": "https://oarn-dashboard-lxpk26rfe-flogb96s-projects.vercel.app/",
+      "url": "https://oarn-dashboard.vercel.app/",
       "label": "Launch Dashboard"
     }
   },
@@ -35,7 +35,7 @@
       { "label": "UI", "class": "" }
     ],
     "link": {
-      "url": "https://oarn-dashboard-lxpk26rfe-flogb96s-projects.vercel.app/",
+      "url": "https://oarn-dashboard.vercel.app/",
       "label": "Launch Dashboard"
     }
   },
