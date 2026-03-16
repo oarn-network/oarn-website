@@ -1,0 +1,97 @@
+[
+  {
+    "title": "Dashboard Connected to Real Blockchain",
+    "date": "Mar 16, 2026",
+    "content": "Replaced all mock data in the dashboard with live on-chain reads via viem and wagmi. Task lists, balances, and consensus status now reflect real Arbitrum Sepolia state. Write operations (claim, submit, fund) connect directly to your browser wallet.",
+    "tags": [
+      { "label": "Release", "class": "release" },
+      { "label": "Dashboard", "class": "" }
+    ],
+    "link": {
+      "url": "https://oarn-dashboard-lxpk26rfe-flogb96s-projects.vercel.app/",
+      "label": "Launch Dashboard"
+    }
+  },
+  {
+    "title": "Pre-Built Node Binaries Available",
+    "date": "Mar 15, 2026",
+    "content": "oarn-node v0.1.0 pre-built binaries now available for Linux x86_64, Linux ARM64, macOS Intel, macOS Apple Silicon, and Windows 64-bit. No Rust toolchain required — download and run.",
+    "tags": [
+      { "label": "Release", "class": "release" },
+      { "label": "Node", "class": "" }
+    ],
+    "link": {
+      "url": "https://github.com/oarn-network/oarn-node/releases",
+      "label": "Download"
+    }
+  },
+  {
+    "title": "OARN Dashboard Launched",
+    "date": "Mar 15, 2026",
+    "content": "Full-featured web dashboard with 4 role-based views: Node Operator, Researcher, Crowdfunder, and Investor. Built with Next.js 14, RainbowKit wallet integration, and real-time analytics. Includes batch parameter testing for 10,000+ parallel variable combinations.",
+    "tags": [
+      { "label": "Release", "class": "release" },
+      { "label": "Dashboard", "class": "" },
+      { "label": "UI", "class": "" }
+    ],
+    "link": {
+      "url": "https://oarn-dashboard-lxpk26rfe-flogb96s-projects.vercel.app/",
+      "label": "Launch Dashboard"
+    }
+  },
+  {
+    "title": "Real ONNX Model Execution Live",
+    "date": "Mar 14, 2026",
+    "content": "Nodes can now execute real ONNX models instead of placeholder mode. Added local inference testing with <code>oarn-node inference</code> command. Tested with linear models achieving 30ms inference time.",
+    "tags": [
+      { "label": "Release", "class": "release" },
+      { "label": "Node", "class": "" }
+    ]
+  },
+  {
+    "title": "3-Node Consensus Test Successful",
+    "date": "Mar 14, 2026",
+    "content": "Successfully ran a full network test with 3 local nodes on Arbitrum Sepolia. Task #4 submitted with 10 parameter combinations. All nodes achieved consensus with matching result hashes.",
+    "tags": [
+      { "label": "Milestone", "class": "" },
+      { "label": "Testnet", "class": "" }
+    ]
+  },
+  {
+    "title": "Investor Pitch Deck Published",
+    "date": "Mar 14, 2026",
+    "content": "13-section investor pitch deck now available covering problem, solution, technology, tokenomics, traction, and investment opportunity. View it on our docs page.",
+    "tags": [
+      { "label": "Business", "class": "" },
+      { "label": "Docs", "class": "" }
+    ]
+  },
+  {
+    "title": "GENESIS-001 MVP Complete",
+    "date": "Mar 6, 2026",
+    "content": "First proof-of-concept for insulin synthesis optimization completed. Local pipeline tested with 10 parameter combinations. Optimal found: 60.48% yield at 37°C, pH 6.95. Ready for network-wide testing.",
+    "tags": [
+      { "label": "Research", "class": "research" },
+      { "label": "GENESIS-001", "class": "" }
+    ]
+  },
+  {
+    "title": "Batch Task Processing Implemented",
+    "date": "Mar 6, 2026",
+    "content": "Submit 10,000+ parameter combinations in a single on-chain task. Nodes process in parallel using Rayon. 99.99% gas savings compared to individual task submissions.",
+    "tags": [
+      { "label": "Release", "class": "release" },
+      { "label": "Node", "class": "" },
+      { "label": "SDK", "class": "" }
+    ]
+  },
+  {
+    "title": "SDK Published to npm",
+    "date": "Mar 5, 2026",
+    "content": "The @oarnnetwork/sdk package is now available on npm. TypeScript/JavaScript SDK for submitting tasks, batch processing, and result aggregation. Supports both ESM and CommonJS.",
+    "tags": [
+      { "label": "Release", "class": "release" },
+      { "label": "SDK", "class": "" }
+    ]
+  }
+]
