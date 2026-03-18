@@ -509,6 +509,160 @@ section {
     margin-bottom: 4px;
 }
 
+/* Earn GOV Section */
+.earn-gov {
+    background: var(--background);
+    padding: 80px 0;
+}
+
+.earn-gov-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+    margin: 48px 0 40px;
+}
+
+/* 3+2 centered: row 1 = cols 1-2, 3-4, 5-6 | row 2 = cols 2-3, 4-5 */
+.earn-gov-grid .earn-tier-card:nth-child(1) { grid-column: 1 / 3; }
+.earn-gov-grid .earn-tier-card:nth-child(2) { grid-column: 3 / 5; }
+.earn-gov-grid .earn-tier-card:nth-child(3) { grid-column: 5 / 7; }
+.earn-gov-grid .earn-tier-card:nth-child(4) { grid-column: 2 / 4; }
+.earn-gov-grid .earn-tier-card:nth-child(5) { grid-column: 4 / 6; }
+
+.earn-tier-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 20px;
+    text-align: center;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.earn-tier-card:hover {
+    transform: translateY(-4px);
+}
+
+.earn-tier-card.bronze { border-top: 3px solid #cd7f32; }
+.earn-tier-card.silver { border-top: 3px solid #c0c0c0; }
+.earn-tier-card.gold { border-top: 3px solid #ffd700; }
+.earn-tier-card.platinum { border-top: 3px solid var(--primary-light); }
+.earn-tier-card.genesis { border-top: 3px solid var(--accent); background: linear-gradient(135deg, var(--surface), rgba(34,211,238,0.05)); }
+
+.tier-badge {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+    color: var(--text-muted);
+}
+
+.earn-tier-card.genesis .tier-badge { color: var(--accent); }
+
+.tier-points {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.tier-reward {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+}
+
+.earn-tier-card.genesis .tier-reward { color: var(--accent); }
+
+.earn-tier-card p {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.earn-activities {
+    margin: 0 auto 48px;
+    max-width: 800px;
+}
+
+.earn-activities h3 {
+    text-align: center;
+    font-size: 20px;
+    margin-bottom: 24px;
+    color: var(--text);
+}
+
+.activities-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.activity-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.activity-pts {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent);
+    white-space: nowrap;
+    min-width: 40px;
+}
+
+.activity-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.earn-gov-cta {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.earn-gov-cta-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+.earn-gov-note {
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+@media (max-width: 600px) {
+    .earn-gov-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .earn-gov-grid .earn-tier-card:nth-child(n) {
+        grid-column: auto;
+    }
+
+    .activities-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 400px) {
+    .earn-gov-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* Contracts Section */
 .contracts {
     background: var(--background);
