@@ -1,5 +1,34 @@
 [
   {
+    "title": "WetLab Oracle Live on Dashboard — SDK v0.3.0",
+    "date": "Mar 21, 2026",
+    "content": "The closed-loop scientific discovery stack is now fully usable. WetLabOracle is deployed on Arbitrum Sepolia and integrated into the dashboard's Researcher view. Certified labs can submit physical experiment results on-chain; multiple lab confirmations reach consensus on reality, not just computation. SDK v0.3.0 adds <code>getTopPredictions()</code>, <code>submitWetLabResult()</code>, and <code>getVerifiedWetLabResult()</code>.",
+    "tags": [
+      { "label": "Release", "class": "release" },
+      { "label": "WetLab", "class": "research" },
+      { "label": "Dashboard", "class": "" },
+      { "label": "SDK", "class": "" }
+    ],
+    "link": {
+      "url": "https://oarn-dashboard.vercel.app/",
+      "label": "Open Dashboard"
+    }
+  },
+  {
+    "title": "WetLabOracle Deployed — On-Chain Physical Results",
+    "date": "Mar 21, 2026",
+    "content": "WetLabOracle is live on Arbitrum Sepolia at <code>0xF8991A56cB5B9073a3eEC87E95Dfb055fdDF0094</code>. The contract lets certified labs anchor physical experiment measurements on-chain. Multiple labs confirm each result — consensus on reality closes the OARN compute → wet lab loop. GENESIS-001 Phase 2 will be the first closed-loop drug discovery run on-chain.",
+    "tags": [
+      { "label": "Release", "class": "release" },
+      { "label": "WetLab", "class": "research" },
+      { "label": "GENESIS-001", "class": "" }
+    ],
+    "link": {
+      "url": "https://sepolia.arbiscan.io/address/0xF8991A56cB5B9073a3eEC87E95Dfb055fdDF0094",
+      "label": "View on Arbiscan"
+    }
+  },
+  {
     "title": "Dashboard Connected to Real Blockchain",
     "date": "Mar 16, 2026",
     "content": "Replaced all mock data in the dashboard with live on-chain reads via viem and wagmi. Task lists, balances, and consensus status now reflect real Arbitrum Sepolia state. Write operations (claim, submit, fund) connect directly to your browser wallet.",
