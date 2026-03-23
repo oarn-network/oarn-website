@@ -1,16 +1,21 @@
 #!/usr/bin/env node
 /**
  * build-blog.js
- * Reads blog-posts.json and regenerates the update cards section in blog.html.
+ * Reads blog-posts.json and regenerates:
+ *   1. The update cards section in blog.html
+ *   2. rss.xml — for Combot and RSS readers
  *
  * Usage:
  *   node build-blog.js
  *
- * To add a new post: edit blog-posts.json and run this script (or push — CI does it automatically).
+ * To add a new post: edit blog-posts.json and push — CI runs this automatically.
  */
 
 const fs = require('fs');
 const path = require('path');
+
+const SITE_URL = 'https://oarn-network.github.io/oarn-website';
+const RSS_FILE = path.join(__dirname, 'rss.xml');
 
 const POSTS_FILE = path.join(__dirname, 'blog-posts.json');
 const BLOG_FILE = path.join(__dirname, 'blog.html');
@@ -40,8 +45,46 @@ ${tagsHtml}
                         </div>`;
 }
 
+function stripHtml(str) {
+  return str.replace(/<[^>]+>/g, '');
+}
+
+function toRfc822(dateStr) {
+  return new Date(dateStr).toUTCString();
+}
+
+function buildRss(posts) {
+  const items = posts.map(post => {
+    const plainContent = stripHtml(post.content);
+    const link = post.link ? post.link.url : `${SITE_URL}/blog.html`;
+    return `    <item>
+      <title>${post.title}</title>
+      <link>${link}</link>
+      <description>${plainContent}</description>
+      <pubDate>${toRfc822(post.date)}</pubDate>
+      <guid>${link}#${encodeURIComponent(post.title)}</guid>
+    </item>`;
+  }).join('\n');
+
+  const lastBuild = toRfc822(posts[0].date);
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>OARN Network — Updates</title>
+    <link>${SITE_URL}/blog.html</link>
+    <description>Latest updates from OARN Network — decentralized AI compute on Arbitrum.</description>
+    <language>en-us</language>
+    <lastBuildDate>${lastBuild}</lastBuildDate>
+${items}
+  </channel>
+</rss>`;
+}
+
 function main() {
   const posts = JSON.parse(fs.readFileSync(POSTS_FILE, 'utf8'));
+
+  // 1. Regenerate blog.html
   const html = fs.readFileSync(BLOG_FILE, 'utf8');
 
   const startIdx = html.indexOf(START_MARKER);
@@ -60,6 +103,10 @@ function main() {
 
   fs.writeFileSync(BLOG_FILE, newHtml, 'utf8');
   console.log(`✓ blog.html updated with ${posts.length} posts.`);
+
+  // 2. Regenerate rss.xml
+  fs.writeFileSync(RSS_FILE, buildRss(posts), 'utf8');
+  console.log(`✓ rss.xml generated with ${posts.length} items.`);
 }
 
 main();

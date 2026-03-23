@@ -24,10 +24,10 @@ jobs:
       - name: Regenerate blog.html
         run: node build-blog.js
 
-      - name: Commit updated blog.html
+      - name: Commit updated blog.html and rss.xml
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add blog.html
-          git diff --cached --quiet || git commit -m "chore: regenerate blog.html from blog-posts.json"
+          git add blog.html rss.xml
+          git diff --cached --quiet || git commit -m "chore: regenerate blog.html and rss.xml from blog-posts.json"
           git push
