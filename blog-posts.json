@@ -1,5 +1,60 @@
 [
   {
+    "title": "Telegram RSS Integration Live",
+    "date": "Mar 23, 2026",
+    "content": "Blog updates now auto-post to the OARN Telegram channel (@OARNAlerts) via RSS feed. Every new entry in blog-posts.json triggers an automatic Telegram notification within the hour. Subscribe to stay updated in real time.",
+    "tags": [
+      { "label": "Community", "class": "" },
+      { "label": "Telegram", "class": "" }
+    ],
+    "link": {
+      "url": "https://t.me/OARNAlerts",
+      "label": "Join @OARNAlerts"
+    }
+  },
+  {
+    "title": "Testnet Rewards Program Launched",
+    "date": "Mar 18, 2026",
+    "content": "Node operators can now earn GOV token allocations before mainnet. Run a node on Arbitrum Sepolia, complete AI tasks, and accumulate points toward TGE (Q3 2026). Tiers range from Bronze (1,000 GOV) to Genesis — top 10 operators receive 250,000 GOV each. Early bird 1.5× multiplier active until April 30, 2026.",
+    "tags": [
+      { "label": "Rewards", "class": "release" },
+      { "label": "Testnet", "class": "" },
+      { "label": "GOV", "class": "" }
+    ],
+    "link": {
+      "url": "https://github.com/oarn-network/oarn-network/blob/main/docs/testnet-rewards-program.md",
+      "label": "View Program"
+    }
+  },
+  {
+    "title": "DAO Governance Live on Testnet",
+    "date": "Mar 16, 2026",
+    "content": "OARNGovernance contract deployed to Arbitrum Sepolia. GOV token holders can now create proposals and vote on-chain. The Investor dashboard shows live proposals, voting power, and delegation. First governance proposal created as genesis demonstration.",
+    "tags": [
+      { "label": "Release", "class": "release" },
+      { "label": "Governance", "class": "" },
+      { "label": "DAO", "class": "" }
+    ],
+    "link": {
+      "url": "https://oarn-dashboard.vercel.app/",
+      "label": "View Governance"
+    }
+  },
+  {
+    "title": "Crowdfunding for Research Tasks",
+    "date": "Mar 15, 2026",
+    "content": "Anyone can now add ETH to existing research tasks to increase node rewards and attract more compute. The <code>fundTask()</code> function is live in TaskRegistryV2, and the Crowdfunder dashboard lets you browse and fund open research. Community-funded science, on-chain.",
+    "tags": [
+      { "label": "Release", "class": "release" },
+      { "label": "Research", "class": "research" },
+      { "label": "Community", "class": "" }
+    ],
+    "link": {
+      "url": "https://oarn-dashboard.vercel.app/",
+      "label": "Fund Research"
+    }
+  },
+  {
     "title": "WetLab Oracle Live on Dashboard — SDK v0.3.0",
     "date": "Mar 21, 2026",
     "content": "The closed-loop scientific discovery stack is now fully usable. WetLabOracle is deployed on Arbitrum Sepolia and integrated into the dashboard's Researcher view. Certified labs can submit physical experiment results on-chain; multiple lab confirmations reach consensus on reality, not just computation. SDK v0.3.0 adds <code>getTopPredictions()</code>, <code>submitWetLabResult()</code>, and <code>getVerifiedWetLabResult()</code>.",
