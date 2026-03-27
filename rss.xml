@@ -5,20 +5,27 @@
     <link>https://oarn-network.github.io/oarn-website/blog.html</link>
     <description>Latest updates from OARN Network — decentralized AI compute on Arbitrum.</description>
     <language>en-us</language>
-    <lastBuildDate>Mon, 23 Mar 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 27 Mar 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Dashboard Analytics Fully Live On-Chain</title>
+      <link>https://oarn-dashboard.vercel.app/</link>
+      <description>Every chart, stat, and leaderboard in the OARN dashboard now reads real on-chain data — no more placeholder numbers anywhere. Model framework distribution is decoded directly from submitTask() calldata, so the pie chart reflects your actual task history. Average consensus time is computed from TaskClaimed → ConsensusReached event pairs. Token metrics (COMP and GOV total supply, GOV holder count) are read live from the token contracts. Active governance proposals come straight from the on-chain Governance contract — the hardcoded OIP-12 and OIP-11 entries are gone.</description>
+      <pubDate>Fri, 27 Mar 2026 00:00:00 GMT</pubDate>
+      <guid>https://oarn-dashboard.vercel.app/#Dashboard%20Analytics%20Fully%20Live%20On-Chain</guid>
+    </item>
+    <item>
+      <title>Node Now Runs PyTorch, TensorFlow + Detects GPUs</title>
+      <link>https://github.com/oarn-network/oarn-node/releases</link>
+      <description>oarn-node now executes PyTorch TorchScript models and TensorFlow SavedModel/.h5 files alongside ONNX — no native library installs required. Execution runs via Python subprocess, so node operators with existing ML environments get full framework support out of the box. GPU VRAM is now detected automatically via nvidia-smi (CUDA) and rocm-smi (AMD ROCm), with graceful fallback on CPU-only machines. The node also switched from HTTP polling to WebSocket event subscription for instant task notification, and peer discovery now reads directly from the on-chain OARNRegistry contract instead of hardcoded bootstrap addresses.</description>
+      <pubDate>Fri, 27 Mar 2026 00:00:00 GMT</pubDate>
+      <guid>https://github.com/oarn-network/oarn-node/releases#Node%20Now%20Runs%20PyTorch%2C%20TensorFlow%20%2B%20Detects%20GPUs</guid>
+    </item>
     <item>
       <title>Telegram RSS Integration Live</title>
       <link>https://t.me/OARNAlerts</link>
       <description>Blog updates now auto-post to the OARN Telegram channel (@OARNAlerts) via RSS feed. Every new entry in blog-posts.json triggers an automatic Telegram notification within the hour. Subscribe to stay updated in real time.</description>
       <pubDate>Mon, 23 Mar 2026 00:00:00 GMT</pubDate>
       <guid>https://t.me/OARNAlerts#Telegram%20RSS%20Integration%20Live</guid>
-    </item>
-    <item>
-      <title>Testnet Rewards Program Launched</title>
-      <link>https://github.com/oarn-network/oarn-network/blob/main/docs/testnet-rewards-program.md</link>
-      <description>Node operators can now earn GOV token allocations before mainnet. Run a node on Arbitrum Sepolia, complete AI tasks, and accumulate points toward TGE (Q3 2026). Tiers range from Bronze (1,000 GOV) to Genesis — top 10 operators receive 250,000 GOV each. Early bird 1.5× multiplier active until April 30, 2026.</description>
-      <pubDate>Wed, 18 Mar 2026 00:00:00 GMT</pubDate>
-      <guid>https://github.com/oarn-network/oarn-network/blob/main/docs/testnet-rewards-program.md#Testnet%20Rewards%20Program%20Launched</guid>
     </item>
     <item>
       <title>DAO Governance Live on Testnet</title>
