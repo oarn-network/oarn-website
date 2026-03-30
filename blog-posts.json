@@ -1,11 +1,36 @@
 [
   {
+    "title": "Node Reputation Scores Now Live",
+    "date": "Mar 30, 2026",
+    "content": "Node operators on OARN now have a live reputation score, computed entirely from on-chain event history \u2014 no self-reporting, no off-chain data. The score runs from 0 to 100 and factors in three signals: consensus match rate (40%) \u2014 how often your submitted results agreed with the network majority; submission rate (30%) \u2014 whether you followed through after claiming a task; and volume (30%) \u2014 total tasks completed. Scores map to tiers: New, Bronze, Silver, Gold, and Platinum. Operators who hit 95%+ consensus match rate are flagged as eligible for the 1.2\u00d7 COMP reward multiplier, which will be enforced on-chain once the reputation storage contract ships. The <code>ReputationCard</code> component is live on the Node Operator dashboard \u2014 connect your wallet to see your score, tier, and per-metric breakdowns in real time.",
+    "tags": [
+      {
+        "label": "Release",
+        "class": "release"
+      },
+      {
+        "label": "Node Operators",
+        "class": ""
+      }
+    ],
+    "link": {
+      "url": "https://oarn-dashboard.vercel.app/",
+      "label": "View Your Score"
+    }
+  },
+  {
     "title": "Dashboard Analytics Fully Live On-Chain",
     "date": "Mar 27, 2026",
-    "content": "Every chart, stat, and leaderboard in the OARN dashboard now reads real on-chain data — no more placeholder numbers anywhere. Model framework distribution is decoded directly from <code>submitTask()</code> calldata, so the pie chart reflects your actual task history. Average consensus time is computed from <code>TaskClaimed</code> → <code>ConsensusReached</code> event pairs. Token metrics (COMP and GOV total supply, GOV holder count) are read live from the token contracts. Active governance proposals come straight from the on-chain Governance contract — the hardcoded OIP-12 and OIP-11 entries are gone.",
+    "content": "Every chart, stat, and leaderboard in the OARN dashboard now reads real on-chain data \u2014 no more placeholder numbers anywhere. Model framework distribution is decoded directly from <code>submitTask()</code> calldata, so the pie chart reflects your actual task history. Average consensus time is computed from <code>TaskClaimed</code> \u2192 <code>ConsensusReached</code> event pairs. Token metrics (COMP and GOV total supply, GOV holder count) are read live from the token contracts. Active governance proposals come straight from the on-chain Governance contract \u2014 the hardcoded OIP-12 and OIP-11 entries are gone.",
     "tags": [
-      { "label": "Release", "class": "release" },
-      { "label": "Dashboard", "class": "" }
+      {
+        "label": "Release",
+        "class": "release"
+      },
+      {
+        "label": "Dashboard",
+        "class": ""
+      }
     ],
     "link": {
       "url": "https://oarn-dashboard.vercel.app/",
@@ -15,10 +40,16 @@
   {
     "title": "Node Now Runs PyTorch, TensorFlow + Detects GPUs",
     "date": "Mar 27, 2026",
-    "content": "oarn-node now executes PyTorch TorchScript models and TensorFlow SavedModel/.h5 files alongside ONNX — no native library installs required. Execution runs via Python subprocess, so node operators with existing ML environments get full framework support out of the box. GPU VRAM is now detected automatically via <code>nvidia-smi</code> (CUDA) and <code>rocm-smi</code> (AMD ROCm), with graceful fallback on CPU-only machines. The node also switched from HTTP polling to WebSocket event subscription for instant task notification, and peer discovery now reads directly from the on-chain OARNRegistry contract instead of hardcoded bootstrap addresses.",
+    "content": "oarn-node now executes PyTorch TorchScript models and TensorFlow SavedModel/.h5 files alongside ONNX \u2014 no native library installs required. Execution runs via Python subprocess, so node operators with existing ML environments get full framework support out of the box. GPU VRAM is now detected automatically via <code>nvidia-smi</code> (CUDA) and <code>rocm-smi</code> (AMD ROCm), with graceful fallback on CPU-only machines. The node also switched from HTTP polling to WebSocket event subscription for instant task notification, and peer discovery now reads directly from the on-chain OARNRegistry contract instead of hardcoded bootstrap addresses.",
     "tags": [
-      { "label": "Release", "class": "release" },
-      { "label": "Node", "class": "" }
+      {
+        "label": "Release",
+        "class": "release"
+      },
+      {
+        "label": "Node",
+        "class": ""
+      }
     ],
     "link": {
       "url": "https://github.com/oarn-network/oarn-node/releases",
@@ -30,8 +61,14 @@
     "date": "Mar 23, 2026",
     "content": "Blog updates now auto-post to the OARN Telegram channel (@OARNAlerts) via RSS feed. Every new entry in blog-posts.json triggers an automatic Telegram notification within the hour. Subscribe to stay updated in real time.",
     "tags": [
-      { "label": "Community", "class": "" },
-      { "label": "Telegram", "class": "" }
+      {
+        "label": "Community",
+        "class": ""
+      },
+      {
+        "label": "Telegram",
+        "class": ""
+      }
     ],
     "link": {
       "url": "https://t.me/OARNAlerts",
@@ -43,9 +80,18 @@
     "date": "Mar 16, 2026",
     "content": "OARNGovernance contract deployed to Arbitrum Sepolia. GOV token holders can now create proposals and vote on-chain. The Investor dashboard shows live proposals, voting power, and delegation. First governance proposal created as genesis demonstration.",
     "tags": [
-      { "label": "Release", "class": "release" },
-      { "label": "Governance", "class": "" },
-      { "label": "DAO", "class": "" }
+      {
+        "label": "Release",
+        "class": "release"
+      },
+      {
+        "label": "Governance",
+        "class": ""
+      },
+      {
+        "label": "DAO",
+        "class": ""
+      }
     ],
     "link": {
       "url": "https://oarn-dashboard.vercel.app/",
@@ -57,9 +103,18 @@
     "date": "Mar 15, 2026",
     "content": "Anyone can now add ETH to existing research tasks to increase node rewards and attract more compute. The <code>fundTask()</code> function is live in TaskRegistryV2, and the Crowdfunder dashboard lets you browse and fund open research. Community-funded science, on-chain.",
     "tags": [
-      { "label": "Release", "class": "release" },
-      { "label": "Research", "class": "research" },
-      { "label": "Community", "class": "" }
+      {
+        "label": "Release",
+        "class": "release"
+      },
+      {
+        "label": "Research",
+        "class": "research"
+      },
+      {
+        "label": "Community",
+        "class": ""
+      }
     ],
     "link": {
       "url": "https://oarn-dashboard.vercel.app/",
@@ -67,14 +122,26 @@
     }
   },
   {
-    "title": "WetLab Oracle Live on Dashboard — SDK v0.3.0",
+    "title": "WetLab Oracle Live on Dashboard \u2014 SDK v0.3.0",
     "date": "Mar 21, 2026",
     "content": "The closed-loop scientific discovery stack is now fully usable. WetLabOracle is deployed on Arbitrum Sepolia and integrated into the dashboard's Researcher view. Certified labs can submit physical experiment results on-chain; multiple lab confirmations reach consensus on reality, not just computation. SDK v0.3.0 adds <code>getTopPredictions()</code>, <code>submitWetLabResult()</code>, and <code>getVerifiedWetLabResult()</code>.",
     "tags": [
-      { "label": "Release", "class": "release" },
-      { "label": "WetLab", "class": "research" },
-      { "label": "Dashboard", "class": "" },
-      { "label": "SDK", "class": "" }
+      {
+        "label": "Release",
+        "class": "release"
+      },
+      {
+        "label": "WetLab",
+        "class": "research"
+      },
+      {
+        "label": "Dashboard",
+        "class": ""
+      },
+      {
+        "label": "SDK",
+        "class": ""
+      }
     ],
     "link": {
       "url": "https://oarn-dashboard.vercel.app/",
@@ -82,13 +149,22 @@
     }
   },
   {
-    "title": "WetLabOracle Deployed — On-Chain Physical Results",
+    "title": "WetLabOracle Deployed \u2014 On-Chain Physical Results",
     "date": "Mar 21, 2026",
-    "content": "WetLabOracle is live on Arbitrum Sepolia at <code>0xF8991A56cB5B9073a3eEC87E95Dfb055fdDF0094</code>. The contract lets certified labs anchor physical experiment measurements on-chain. Multiple labs confirm each result — consensus on reality closes the OARN compute → wet lab loop. GENESIS-001 Phase 2 will be the first closed-loop drug discovery run on-chain.",
+    "content": "WetLabOracle is live on Arbitrum Sepolia at <code>0xF8991A56cB5B9073a3eEC87E95Dfb055fdDF0094</code>. The contract lets certified labs anchor physical experiment measurements on-chain. Multiple labs confirm each result \u2014 consensus on reality closes the OARN compute \u2192 wet lab loop. GENESIS-001 Phase 2 will be the first closed-loop drug discovery run on-chain.",
     "tags": [
-      { "label": "Release", "class": "release" },
-      { "label": "WetLab", "class": "research" },
-      { "label": "GENESIS-001", "class": "" }
+      {
+        "label": "Release",
+        "class": "release"
+      },
+      {
+        "label": "WetLab",
+        "class": "research"
+      },
+      {
+        "label": "GENESIS-001",
+        "class": ""
+      }
     ],
     "link": {
       "url": "https://sepolia.arbiscan.io/address/0xF8991A56cB5B9073a3eEC87E95Dfb055fdDF0094",
@@ -100,8 +176,14 @@
     "date": "Mar 16, 2026",
     "content": "Replaced all mock data in the dashboard with live on-chain reads via viem and wagmi. Task lists, balances, and consensus status now reflect real Arbitrum Sepolia state. Write operations (claim, submit, fund) connect directly to your browser wallet.",
     "tags": [
-      { "label": "Release", "class": "release" },
-      { "label": "Dashboard", "class": "" }
+      {
+        "label": "Release",
+        "class": "release"
+      },
+      {
+        "label": "Dashboard",
+        "class": ""
+      }
     ],
     "link": {
       "url": "https://oarn-dashboard.vercel.app/",
@@ -111,10 +193,16 @@
   {
     "title": "Pre-Built Node Binaries Available",
     "date": "Mar 15, 2026",
-    "content": "oarn-node v0.1.0 pre-built binaries now available for Linux x86_64, Linux ARM64, macOS Intel, macOS Apple Silicon, and Windows 64-bit. No Rust toolchain required — download and run.",
+    "content": "oarn-node v0.1.0 pre-built binaries now available for Linux x86_64, Linux ARM64, macOS Intel, macOS Apple Silicon, and Windows 64-bit. No Rust toolchain required \u2014 download and run.",
     "tags": [
-      { "label": "Release", "class": "release" },
-      { "label": "Node", "class": "" }
+      {
+        "label": "Release",
+        "class": "release"
+      },
+      {
+        "label": "Node",
+        "class": ""
+      }
     ],
     "link": {
       "url": "https://github.com/oarn-network/oarn-node/releases",
@@ -126,9 +214,18 @@
     "date": "Mar 15, 2026",
     "content": "Full-featured web dashboard with 4 role-based views: Node Operator, Researcher, Crowdfunder, and Investor. Built with Next.js 14, RainbowKit wallet integration, and real-time analytics. Includes batch parameter testing for 10,000+ parallel variable combinations.",
     "tags": [
-      { "label": "Release", "class": "release" },
-      { "label": "Dashboard", "class": "" },
-      { "label": "UI", "class": "" }
+      {
+        "label": "Release",
+        "class": "release"
+      },
+      {
+        "label": "Dashboard",
+        "class": ""
+      },
+      {
+        "label": "UI",
+        "class": ""
+      }
     ],
     "link": {
       "url": "https://oarn-dashboard.vercel.app/",
@@ -140,8 +237,14 @@
     "date": "Mar 14, 2026",
     "content": "Nodes can now execute real ONNX models instead of placeholder mode. Added local inference testing with <code>oarn-node inference</code> command. Tested with linear models achieving 30ms inference time.",
     "tags": [
-      { "label": "Release", "class": "release" },
-      { "label": "Node", "class": "" }
+      {
+        "label": "Release",
+        "class": "release"
+      },
+      {
+        "label": "Node",
+        "class": ""
+      }
     ]
   },
   {
@@ -149,8 +252,14 @@
     "date": "Mar 14, 2026",
     "content": "Successfully ran a full network test with 3 local nodes on Arbitrum Sepolia. Task #4 submitted with 10 parameter combinations. All nodes achieved consensus with matching result hashes.",
     "tags": [
-      { "label": "Milestone", "class": "" },
-      { "label": "Testnet", "class": "" }
+      {
+        "label": "Milestone",
+        "class": ""
+      },
+      {
+        "label": "Testnet",
+        "class": ""
+      }
     ]
   },
   {
@@ -158,17 +267,29 @@
     "date": "Mar 14, 2026",
     "content": "13-section investor pitch deck now available covering problem, solution, technology, tokenomics, traction, and investment opportunity. View it on our docs page.",
     "tags": [
-      { "label": "Business", "class": "" },
-      { "label": "Docs", "class": "" }
+      {
+        "label": "Business",
+        "class": ""
+      },
+      {
+        "label": "Docs",
+        "class": ""
+      }
     ]
   },
   {
     "title": "GENESIS-001 MVP Complete",
     "date": "Mar 6, 2026",
-    "content": "First proof-of-concept for insulin synthesis optimization completed. Local pipeline tested with 10 parameter combinations. Optimal found: 60.48% yield at 37°C, pH 6.95. Ready for network-wide testing.",
+    "content": "First proof-of-concept for insulin synthesis optimization completed. Local pipeline tested with 10 parameter combinations. Optimal found: 60.48% yield at 37\u00b0C, pH 6.95. Ready for network-wide testing.",
     "tags": [
-      { "label": "Research", "class": "research" },
-      { "label": "GENESIS-001", "class": "" }
+      {
+        "label": "Research",
+        "class": "research"
+      },
+      {
+        "label": "GENESIS-001",
+        "class": ""
+      }
     ]
   },
   {
@@ -176,9 +297,18 @@
     "date": "Mar 6, 2026",
     "content": "Submit 10,000+ parameter combinations in a single on-chain task. Nodes process in parallel using Rayon. 99.99% gas savings compared to individual task submissions.",
     "tags": [
-      { "label": "Release", "class": "release" },
-      { "label": "Node", "class": "" },
-      { "label": "SDK", "class": "" }
+      {
+        "label": "Release",
+        "class": "release"
+      },
+      {
+        "label": "Node",
+        "class": ""
+      },
+      {
+        "label": "SDK",
+        "class": ""
+      }
     ]
   },
   {
@@ -186,8 +316,14 @@
     "date": "Mar 5, 2026",
     "content": "The @oarnnetwork/sdk package is now available on npm. TypeScript/JavaScript SDK for submitting tasks, batch processing, and result aggregation. Supports both ESM and CommonJS.",
     "tags": [
-      { "label": "Release", "class": "release" },
-      { "label": "SDK", "class": "" }
+      {
+        "label": "Release",
+        "class": "release"
+      },
+      {
+        "label": "SDK",
+        "class": ""
+      }
     ]
   }
 ]
