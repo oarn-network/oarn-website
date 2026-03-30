@@ -5,7 +5,14 @@
     <link>https://oarn-network.github.io/oarn-website/blog.html</link>
     <description>Latest updates from OARN Network — decentralized AI compute on Arbitrum.</description>
     <language>en-us</language>
-    <lastBuildDate>Fri, 27 Mar 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 30 Mar 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Node Reputation Scores Now Live</title>
+      <link>https://oarn-dashboard.vercel.app/</link>
+      <description>Node operators on OARN now have a live reputation score, computed entirely from on-chain event history — no self-reporting, no off-chain data. The score runs from 0 to 100 and factors in three signals: consensus match rate (40%) — how often your submitted results agreed with the network majority; submission rate (30%) — whether you followed through after claiming a task; and volume (30%) — total tasks completed. Scores map to tiers: New, Bronze, Silver, Gold, and Platinum. Operators who hit 95%+ consensus match rate are flagged as eligible for the 1.2× COMP reward multiplier, which will be enforced on-chain once the reputation storage contract ships. The ReputationCard component is live on the Node Operator dashboard — connect your wallet to see your score, tier, and per-metric breakdowns in real time.</description>
+      <pubDate>Mon, 30 Mar 2026 00:00:00 GMT</pubDate>
+      <guid>https://oarn-dashboard.vercel.app/#Node%20Reputation%20Scores%20Now%20Live</guid>
+    </item>
     <item>
       <title>Dashboard Analytics Fully Live On-Chain</title>
       <link>https://oarn-dashboard.vercel.app/</link>
