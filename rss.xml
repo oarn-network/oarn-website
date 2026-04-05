@@ -5,7 +5,35 @@
     <link>https://oarn-network.github.io/oarn-website/blog.html</link>
     <description>Latest updates from OARN Network — decentralized AI compute on Arbitrum.</description>
     <language>en-us</language>
-    <lastBuildDate>Mon, 30 Mar 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 05 Apr 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>GOV Genesis Sale Live</title>
+      <link>https://oarn-dashboard.vercel.app/investor</link>
+      <description>30,000,000 GOV tokens are now available for purchase through the OARN Investor dashboard. The GOVSale contract is live on Arbitrum Sepolia at 0x3388E2beAd1C41841b24bD0b9c4dC838b40360a7. Price is set at 10,000 GOV per ETH with a 50,000 GOV cap per wallet. GOV grants on-chain voting rights over protocol parameters, compute incentives, research grants, and treasury decisions. Connect your wallet on the Investor page to participate.</description>
+      <pubDate>Sun, 05 Apr 2026 00:00:00 GMT</pubDate>
+      <guid>https://oarn-dashboard.vercel.app/investor#GOV%20Genesis%20Sale%20Live</guid>
+    </item>
+    <item>
+      <title>WetLabOracle Security Hardening</title>
+      <link>https://sepolia.arbiscan.io/address/0xF8991A56cB5B9073a3eEC87E95Dfb055fdDF0094</link>
+      <description>Three security improvements shipped to WetLabOracle. A 48-hour timelock now guards all admin actions — certifyLab, decertifyLab, setRewardPerVerif, and setRequiredConfirmations must be scheduled before execution, preventing unilateral parameter changes. Consensus checking now skips decertified labs in all loops, so quorum counts only reflect currently certified labs. Result submission now validates task existence and terminal status via ITaskRegistryV2 before accepting wet lab data.</description>
+      <pubDate>Sun, 05 Apr 2026 00:00:00 GMT</pubDate>
+      <guid>https://sepolia.arbiscan.io/address/0xF8991A56cB5B9073a3eEC87E95Dfb055fdDF0094#WetLabOracle%20Security%20Hardening</guid>
+    </item>
+    <item>
+      <title>On-Chain Reputation + 1.2× Reward Multiplier</title>
+      <link>https://oarn-dashboard.vercel.app/node-operator</link>
+      <description>NodeReputation.sol is now live on Arbitrum Sepolia, tracking tasks claimed, submitted, and consensus matches per node address. The contract computes a 0–100 score mapped to tiers: New, Bronze, Silver, Gold, and Platinum. TaskRegistryV2 now enforces a 1.2× COMP reward multiplier for nodes scoring 95 or above — funded via a new fundMultiplierPool() mechanism. Node operators can check their tier and score live on the Node Operator dashboard.</description>
+      <pubDate>Sun, 05 Apr 2026 00:00:00 GMT</pubDate>
+      <guid>https://oarn-dashboard.vercel.app/node-operator#On-Chain%20Reputation%20%2B%201.2%C3%97%20Reward%20Multiplier</guid>
+    </item>
+    <item>
+      <title>Continuous Task Mode</title>
+      <link>https://oarn-dashboard.vercel.app/researcher/submit</link>
+      <description>TaskRegistryV2 now supports continuous task mode — researchers can submit a task that automatically re-queues itself after each round completes. The new submitTaskContinuous() function accepts a maxRounds limit and maxSpendEth cap, with triggerNextRound() advancing the task and stopContinuousTask() halting it. The dashboard Task Submit form includes a continuous mode toggle. This is foundational for long-running parameter sweeps and ongoing inference workloads like GENESIS-001.</description>
+      <pubDate>Sat, 04 Apr 2026 00:00:00 GMT</pubDate>
+      <guid>https://oarn-dashboard.vercel.app/researcher/submit#Continuous%20Task%20Mode</guid>
+    </item>
     <item>
       <title>Node Reputation Scores Now Live</title>
       <link>https://oarn-dashboard.vercel.app/</link>
