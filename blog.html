@@ -381,6 +381,42 @@
                 position: static;
             }
         }
+
+        /* Show more */
+        .show-more-container {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .show-more-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.65rem 1.5rem;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .show-more-btn:hover {
+            border-color: var(--primary);
+            color: var(--text);
+        }
+
+        .show-more-btn svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.2s ease;
+        }
+
+        .show-more-btn.expanded svg {
+            transform: rotate(180deg);
+        }
     </style>
 </head>
 <body>
@@ -436,6 +472,72 @@
                         </h2>
 
                         <!-- BLOG_POSTS_START -->
+                        <div class="update-card">
+                            <div class="update-header">
+                                <span class="update-title">GOV Genesis Sale Live</span>
+                                <span class="update-date">Apr 5, 2026</span>
+                            </div>
+                            <div class="update-content">
+                                30,000,000 GOV tokens are now available for purchase through the OARN Investor dashboard. The GOVSale contract is live on Arbitrum Sepolia at <code>0x3388E2beAd1C41841b24bD0b9c4dC838b40360a7</code>. Price is set at 10,000 GOV per ETH with a 50,000 GOV cap per wallet. GOV grants on-chain voting rights over protocol parameters, compute incentives, research grants, and treasury decisions. Connect your wallet on the Investor page to participate.
+                                <br><br>
+                                <a href="https://oarn-dashboard.vercel.app/investor" target="_blank" class="btn btn-primary btn-small">Buy GOV</a>
+                            </div>
+                            <div class="update-tags">
+                                <span class="tag release">Release</span>
+                                <span class="tag">Governance</span>
+                                <span class="tag">Token</span>
+                            </div>
+                        </div>
+
+                        <div class="update-card">
+                            <div class="update-header">
+                                <span class="update-title">WetLabOracle Security Hardening</span>
+                                <span class="update-date">Apr 5, 2026</span>
+                            </div>
+                            <div class="update-content">
+                                Three security improvements shipped to WetLabOracle. A 48-hour timelock now guards all admin actions — <code>certifyLab</code>, <code>decertifyLab</code>, <code>setRewardPerVerif</code>, and <code>setRequiredConfirmations</code> must be scheduled before execution, preventing unilateral parameter changes. Consensus checking now skips decertified labs in all loops, so quorum counts only reflect currently certified labs. Result submission now validates task existence and terminal status via <code>ITaskRegistryV2</code> before accepting wet lab data.
+                                <br><br>
+                                <a href="https://sepolia.arbiscan.io/address/0xF8991A56cB5B9073a3eEC87E95Dfb055fdDF0094" target="_blank" class="btn btn-primary btn-small">View Contract</a>
+                            </div>
+                            <div class="update-tags">
+                                <span class="tag release">Release</span>
+                                <span class="tag research">WetLab</span>
+                                <span class="tag">Security</span>
+                            </div>
+                        </div>
+
+                        <div class="update-card">
+                            <div class="update-header">
+                                <span class="update-title">On-Chain Reputation + 1.2× Reward Multiplier</span>
+                                <span class="update-date">Apr 5, 2026</span>
+                            </div>
+                            <div class="update-content">
+                                NodeReputation.sol is now live on Arbitrum Sepolia, tracking tasks claimed, submitted, and consensus matches per node address. The contract computes a 0–100 score mapped to tiers: New, Bronze, Silver, Gold, and Platinum. TaskRegistryV2 now enforces a 1.2× COMP reward multiplier for nodes scoring 95 or above — funded via a new <code>fundMultiplierPool()</code> mechanism. Node operators can check their tier and score live on the Node Operator dashboard.
+                                <br><br>
+                                <a href="https://oarn-dashboard.vercel.app/node-operator" target="_blank" class="btn btn-primary btn-small">View Your Score</a>
+                            </div>
+                            <div class="update-tags">
+                                <span class="tag release">Release</span>
+                                <span class="tag">Node Operators</span>
+                            </div>
+                        </div>
+
+                        <div class="update-card">
+                            <div class="update-header">
+                                <span class="update-title">Continuous Task Mode</span>
+                                <span class="update-date">Apr 4, 2026</span>
+                            </div>
+                            <div class="update-content">
+                                TaskRegistryV2 now supports continuous task mode — researchers can submit a task that automatically re-queues itself after each round completes. The new <code>submitTaskContinuous()</code> function accepts a <code>maxRounds</code> limit and <code>maxSpendEth</code> cap, with <code>triggerNextRound()</code> advancing the task and <code>stopContinuousTask()</code> halting it. The dashboard Task Submit form includes a continuous mode toggle. This is foundational for long-running parameter sweeps and ongoing inference workloads like GENESIS-001.
+                                <br><br>
+                                <a href="https://oarn-dashboard.vercel.app/researcher/submit" target="_blank" class="btn btn-primary btn-small">Submit a Task</a>
+                            </div>
+                            <div class="update-tags">
+                                <span class="tag release">Release</span>
+                                <span class="tag research">Research</span>
+                            </div>
+                        </div>
+
                         <div class="update-card">
                             <div class="update-header">
                                 <span class="update-title">Node Reputation Scores Now Live</span>
@@ -703,6 +805,14 @@
                             </div>
                         </div>
                         <!-- BLOG_POSTS_END -->
+                        <div class="show-more-container" id="show-more-container" style="display:none;">
+                            <button class="show-more-btn" id="show-more-btn" onclick="toggleOlderPosts()">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9"/>
+                                </svg>
+                                <span id="show-more-label">Show older posts</span>
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Roadmap Progress -->
@@ -950,6 +1060,41 @@
                     fallback.classList.add('show');
                 }
             });
+        })();
+    </script>
+
+    <script>
+        // Show/hide older posts — keep newest 10 visible
+        (function() {
+            const VISIBLE = 10;
+            const cards = Array.from(document.querySelectorAll('#show-more-container')
+                .length ? [] : []).concat(
+                Array.from(document.querySelectorAll('.blog-section .update-card'))
+            );
+
+            // Re-query properly
+            const section = document.querySelector('.blog-section');
+            const allCards = section ? Array.from(section.querySelectorAll('.update-card')) : [];
+
+            if (allCards.length <= VISIBLE) return;
+
+            const overflow = allCards.slice(VISIBLE);
+            overflow.forEach(c => { c.style.display = 'none'; c.dataset.overflow = '1'; });
+
+            const container = document.getElementById('show-more-container');
+            const btn = document.getElementById('show-more-btn');
+            const label = document.getElementById('show-more-label');
+            if (container) container.style.display = 'block';
+            if (label) label.textContent = 'Show ' + overflow.length + ' older posts';
+
+            window.toggleOlderPosts = function() {
+                const expanded = btn.classList.contains('expanded');
+                overflow.forEach(c => { c.style.display = expanded ? 'none' : ''; });
+                btn.classList.toggle('expanded', !expanded);
+                label.textContent = expanded
+                    ? 'Show ' + overflow.length + ' older posts'
+                    : 'Show less';
+            };
         })();
     </script>
 </body>
