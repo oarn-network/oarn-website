@@ -5,7 +5,14 @@
     <link>https://oarn-network.github.io/oarn-website/blog.html</link>
     <description>Latest updates from OARN Network — decentralized AI compute on Arbitrum.</description>
     <language>en-us</language>
-    <lastBuildDate>Sun, 05 Apr 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 06 Apr 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>10-Node Scale-Up: Full Fleet Consensus Now Live</title>
+      <link>/docs/operators/scale-nodes</link>
+      <description>OARN Network now supports scaling to 10-node clusters with automated deployment and validation. We've shipped scale-nodes.sh for seamless node provisioning and stress-test.mjs to verify consensus across the full fleet. New operators can spin up a complete distributed network in minutes—script handles config replication, PM2 orchestration, and registry updates. We stress-tested with 20 concurrent tasks requiring all 10 nodes; full consensus achieved.</description>
+      <pubDate>Mon, 06 Apr 2026 00:00:00 GMT</pubDate>
+      <guid>/docs/operators/scale-nodes#10-Node%20Scale-Up%3A%20Full%20Fleet%20Consensus%20Now%20Live</guid>
+    </item>
     <item>
       <title>GOV Genesis Sale Live</title>
       <link>https://oarn-dashboard.vercel.app/investor</link>
